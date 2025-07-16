@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-114832940-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>LoongArch 研究小记（一） | IceSword Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="author: xiongxiao (395984722@qq.com),  jiayy (chengjia4574@gmail.com) LoongArch目前世界上主要的指令集架构有 MIPS, X86, Power, Alpha, ARM 等，除了 ARM 是英国的其余都是美国的。国内的芯片厂商龙芯，君正，兆芯，海光，申威，飞腾，海思，展讯，华芯通等购买相应授权并开发相应芯片产品，这就是目前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LoongArch 研究小记（一）">
+<meta property="og:url" content="http://yoursite.com/2021/09/24/LoongArch/index.html">
+<meta property="og:site_name" content="IceSword Lab">
+<meta property="og:description" content="author: xiongxiao (395984722@qq.com),  jiayy (chengjia4574@gmail.com) LoongArch目前世界上主要的指令集架构有 MIPS, X86, Power, Alpha, ARM 等，除了 ARM 是英国的其余都是美国的。国内的芯片厂商龙芯，君正，兆芯，海光，申威，飞腾，海思，展讯，华芯通等购买相应授权并开发相应芯片产品，这就是目前">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-24T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-16T10:02:19.305Z">
+<meta property="article:author" content="IceSword Lab">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="IceSword Lab" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">IceSword Lab</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">Work hard in silence , let success make the noise.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../../../research">Research</a>
+        
+          <a class="main-nav-link" href="../../../../vulnerabilities">Vulnerabilities</a>
+        
+          <a class="main-nav-link" href="../../../../recruitment">Recruitment</a>
+        
+          <a class="main-nav-link" href="../../../../about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2021/09/24/LoongArch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2021-09-24T00:00:00.000Z" itemprop="datePublished">2021-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LoongArch 研究小记（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>author: xiongxiao (<a href="mailto:395984722@qq.com">395984722@qq.com</a>),  jiayy (<a href="mailto:chengjia4574@gmail.com">chengjia4574@gmail.com</a>)</p>
+<h1 id="LoongArch"><a href="#LoongArch" class="headerlink" title="LoongArch"></a>LoongArch</h1><p>目前世界上主要的指令集架构有 MIPS, X86, Power, Alpha, ARM 等，除了 ARM 是英国的其余都是美国的。国内的芯片厂商龙芯，君正，兆芯，海光，申威，飞腾，海思，展讯，华芯通等购买相应授权并开发相应芯片产品，这就是目前芯片市场的情况，可以说脖子被卡得死死的。</p>
+<p>2021.04.30，<a href="https://mp.weixin.qq.com/s/5wzy_rS-C3sGuRzbVKhjJQ" target="_blank" rel="noopener">龙芯自主指令系统LoongArch基础架构手册正式发布</a> ，号称从顶层架构，到指令功能和 ABI 标准等，全部自主设计，不需国外授权。2021.07.23， 基于自主指令集 LA 架构的 <a href="https://mp.weixin.qq.com/s/gccqI3_Z99HxnJuVxNj1hw" target="_blank" rel="noopener">新一代处理器龙芯3A5000正式发布</a> ，据称 spec 2006评分达到26分，接近30分的一代锐龙。</p>
+<p>我们小组及时跟进研究了 LA 的手册，并在 3A5000 设备上开发了相应的产品。在这过程中发现网上对这一新生事物缺乏资料（除了官方的），遂写了本篇小记。</p>
+<h1 id="inline-Hook"><a href="#inline-Hook" class="headerlink" title="inline Hook"></a>inline Hook</h1><p>其中一个任务是实现 LA 上的 inline hook 。指令手册主要参考:</p>
+<ul>
+<li>第二章 基础整数指令, 解释指令格式和功能</li>
+<li>附录B 指令码一览, 指令的二进制编码方式</li>
+</ul>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">基础整数指令涉及的寄存器包括通用寄存器(General-purpose Register，简称 GR) 和 程序记数寄存器(Program Counter，简称PC)</span><br><span class="line"></span><br><span class="line">通用寄存器GR有32个，记为r0~r31, 其中 0 号寄存器r0的值恒为 0。</span><br><span class="line"></span><br><span class="line">GR 的位宽记做 GRLEN。LA32 32bit, LA64 64bit。</span><br><span class="line"></span><br><span class="line">在标准的龙芯架构应用程序二进制接口(Application Binary Interfac, 简称ABI) 中，r1 固定作为存放函数调用返回地址的寄存器。</span><br><span class="line"></span><br><span class="line">其中GR包括 r0 ... r31 共32个</span><br><span class="line"></span><br><span class="line">PC 只有1个，记录当前指令的地址。</span><br><span class="line"></span><br><span class="line">PC 寄存器不能被指令直接修改，只能被转移指令、例外陷入和例外返回指令间接修改。</span><br><span class="line"></span><br><span class="line">可以作为一些非转移类指令的源操作数直接读取。</span><br><span class="line">(以上内容全部摘自指令手册)</span><br></pre></td></tr></table></figure>
+
+
+<p>补充:<br>根据LoongArch ABI，寄存器功能的更细的划分如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">R0 : 永 远 为0</span><br><span class="line">R1 : ra 返 回 地 址</span><br><span class="line">R2 : tp , 线 程 指 针</span><br><span class="line">R3 : sp , 栈 指 针</span><br><span class="line">R4−R11： 参 数a0−a7 , a0&#x2F;a1 返 回</span><br><span class="line">R12−R20 : t0−t8 临 时 寄 存 器</span><br><span class="line">R21 : r e s e r v e</span><br><span class="line">R22 : fp</span><br><span class="line">R23−R31 : s0−s8 c a l l e e</span><br></pre></td></tr></table></figure>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>这里通过BEQ指令说明如何查询手册，快速获得这条指令相关的信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在附录中可以找到指令的编码</span></span><br><span class="line">BEQ rj, rd, offs 	| 0 1 0 1 1 0 offs[15:0] rj rd</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在第二章可以找到指令的功能解释以及编码含义</span></span><br><span class="line">BEQ 将通用寄存器 rj 和通用寄存器 rd 的值进行比较，如果两者相等则跳转到目标地址，否则不跳转</span><br><span class="line"></span><br><span class="line">if GR[rj] == GR[rd] :</span><br><span class="line">	PC = PC + SignExtend(offs16, 2'b0&#125;, GRLEN)</span><br></pre></td></tr></table></figure>
+<p>伪代码中 SignExtend(offs16, 2’b0}, GRLEN) 的含义是offs16 左移两位，然后符号扩展到GRLEN(LA64下 即64位)</p>
+<p>关于符号扩展<a href="https://zh.wikipedia.org/zh-hans/%E7%AC%A6%E5%8F%B7%E6%89%A9%E5%85%85" target="_blank" rel="noopener">Wiki</a>，C实现如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 依赖 &gt;&gt; 符号本身就是符号扩展的特性，可以简单实现为</span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">sign_extend</span><span class="params">(<span class="keyword">long</span> off, <span class="keyword">int</span> bits)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ((off &lt;&lt; (<span class="number">64</span> - bits)) &gt;&gt; (<span class="number">64</span> - bits));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不依赖 &lt;&lt; 符号</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">sign_extend</span><span class="params">(<span class="keyword">long</span> off, <span class="keyword">unsigned</span> <span class="keyword">int</span> bits)</span></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> sign_mask = <span class="number">1U</span>L &lt;&lt; (bits - <span class="number">1</span>);    <span class="comment">// bit[bits - 1] 为 1,其他位全部为 0</span></span><br><span class="line">	<span class="keyword">long</span> pos_mask = (<span class="number">1U</span>L &lt;&lt; bits) - <span class="number">1</span>;    <span class="comment">// bit[0:bits] 全部为 1, bit[bits: 63] 全部为0</span></span><br><span class="line">	<span class="keyword">long</span> neg_mask = ~((<span class="number">1U</span>L &lt;&lt; bits) - <span class="number">1</span>);  <span class="comment">// bit[0:bits] 全部为 0, bit[bits: 63] 全部为1</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(off &amp; sign_mask)&#123;</span><br><span class="line">		<span class="comment">// 符号位为 1, 保证扩展后的高位全部为 1</span></span><br><span class="line">		<span class="keyword">return</span> off | neg_mask;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">// 符号位为 0, 保证扩展后的高位全部为 0</span></span><br><span class="line">		<span class="keyword">return</span> off &amp; pos_mask;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"0x%lx\n"</span>, sign_extend(<span class="number">0x80</span>, <span class="number">8</span>)); 	<span class="comment">// 0xffffffffffffff80</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"0x%lx\n"</span>, sign_extend(<span class="number">0x80</span>, <span class="number">9</span>));	<span class="comment">// 0x80</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="PC-相对寻址指令替换"><a href="#PC-相对寻址指令替换" class="headerlink" title="PC 相对寻址指令替换"></a>PC 相对寻址指令替换</h2><p>inline hook 的主要工作之一就是修复这类指令，即计算出正确的地址，然后通过其他指令替换</p>
+<p>LoongArch64 中的PC相对寻址指令如下:</p>
+<p>算数运算指令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PCADDI rd, si20 	| 0 0 0 1 1 0 0 si20 rd</span><br><span class="line">PCALAU12I rd, si20 	| 0 0 0 1 1 0 1 si20 rd</span><br><span class="line">PCADDU12I rd, si20 	| 0 0 0 1 1 1 0 si20 rd</span><br><span class="line">PCADDU18I rd, si20 	| 0 0 0 1 1 1 1 si20 rd</span><br></pre></td></tr></table></figure>
+
+<p>转移指令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BEQZ rj, offs 		| 0 1 0 0 0 0 offs[15:0] rj offs[20:16]</span><br><span class="line">BNEZ rj, offs 		| 0 1 0 0 0 1 offs[15:0] rj offs[20:16]</span><br><span class="line">BCEQZ cj, offs 		| 0 1 0 0 1 0 offs[15:0] 0 0 cj offs[20:16]</span><br><span class="line">BCNEZ cj, offs 		| 0 1 0 0 1 0 offs[15:0] 0 1 cj offs[20:16]</span><br><span class="line"><span class="meta">#</span><span class="bash"> JIRL rd, rj, offs	| 0 1 0 0 1 1 offs[15:0] rj rd              (唯一一个不是PC相对寻址的转移指令)  </span></span><br><span class="line">B offs 			| 0 1 0 1 0 0 offs[15:0] offs[25:16]</span><br><span class="line">BL offs 		| 0 1 0 1 0 1 offs[15:0] offs[25:16]</span><br><span class="line">BEQ rj, rd, offs 	| 0 1 0 1 1 0 offs[15:0] rj rd</span><br><span class="line">BNE rj, rd, offs	| 0 1 0 1 1 1 offs[15:0] rj rd</span><br><span class="line">BLT rj, rd, offs	| 0 1 1 0 0 0 offs[15:0] rj rd</span><br><span class="line">BGE rj, rd, offs	| 0 1 1 0 0 1 offs[15:0] rj rd</span><br></pre></td></tr></table></figure>
+
+<p>对这两类的指令替换方案如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pcaddi [target_reg], si20 替换为:</span><br><span class="line"></span><br><span class="line">PCADDI r17, 12/4		# 将 pc + 12 存放到 r17 临时寄存器</span><br><span class="line">LD.D [target_reg], r17, 0	# 取出 r17 地址处的 8 个字节保存到 target_reg</span><br><span class="line">B 12/4				# 跳过存放地址的8个字节，即 pc += 12，由于指令会对偏移移位，所以要12/4</span><br><span class="line">IMM[ 0: 31]  			# 基于原指令pc 计算得到的结果低32bit</span><br><span class="line">IMM[32: 63]			# 基于原指令pc 计算得到的结果高32bit</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">b offs 替换为:</span><br><span class="line"></span><br><span class="line">PCADDI R17, 12/4	# 将 pc + 12 存放到 r17 临时寄存器</span><br><span class="line">LD.D R17, R17, 0	# 取出 r17 地址处的 8 个字节保存到 r17</span><br><span class="line">JIRL R0, R17, 0		# 跳转到 r17 保存的地址处</span><br><span class="line">TO_ADDR[0 : 31]		# 基于原指令pc 计算得到的跳转地址低32bit</span><br><span class="line">TO_ADDR[32: 63]  	# 基于原指令pc 计算得到的跳转地址高32bit</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 条件跳转类的替换方式如下:</span></span><br><span class="line">BEQ rj, rd, offs 替换为:</span><br><span class="line"></span><br><span class="line">BNE rj, rd, 24/4</span><br><span class="line">PCADDI R17, 12/4</span><br><span class="line">LD.D R17, R17, 0</span><br><span class="line">JIRL R0, R17, 0</span><br><span class="line">TO_ADDR[0 : 31]</span><br><span class="line">TO_ADDR[32: 63]</span><br></pre></td></tr></table></figure>
+
+<h2 id="r1寄存器"><a href="#r1寄存器" class="headerlink" title="r1寄存器"></a>r1寄存器</h2><p>有时函数栈的切换不会把返回值压栈，而是直接使用r1寄存器</p>
+<p>经测试，当一个函数没有调用子函数的时候，不会把 r1 压栈</p>
+<p>开启gcc 编译优化也会省去压栈操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.c</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func2</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> func1(a, b) + <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">	func1(<span class="number">100</span>, <span class="number">200</span>);</span><br><span class="line">	func2(<span class="number">100</span>, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">$ gcc main.c -g</span><br><span class="line">$ gdb a.out</span><br><span class="line">(gdb) disassemble func1</span><br><span class="line">Dump of assembler code for function func1:</span><br><span class="line">   0x0000000120000650 &lt;+0&gt;:	addi.d	$r3,$r3,-32(0xfe0)</span><br><span class="line">   0x0000000120000654 &lt;+4&gt;:	st.d	$r22,$r3,24(0x18)</span><br><span class="line">   0x0000000120000658 &lt;+8&gt;:	addi.d	$r22,$r3,32(0x20)</span><br><span class="line">   0x000000012000065c &lt;+12&gt;:	move	$r13,$r4</span><br><span class="line">   0x0000000120000660 &lt;+16&gt;:	move	$r12,$r5</span><br><span class="line">   0x0000000120000664 &lt;+20&gt;:	slli.w	$r13,$r13,0x0</span><br><span class="line">   0x0000000120000668 &lt;+24&gt;:	st.w	$r13,$r22,-20(0xfec)</span><br><span class="line">   0x000000012000066c &lt;+28&gt;:	slli.w	$r12,$r12,0x0</span><br><span class="line">   0x0000000120000670 &lt;+32&gt;:	st.w	$r12,$r22,-24(0xfe8)</span><br><span class="line">   0x0000000120000674 &lt;+36&gt;:	ld.w	$r13,$r22,-20(0xfec)</span><br><span class="line">   0x0000000120000678 &lt;+40&gt;:	ld.w	$r12,$r22,-24(0xfe8)</span><br><span class="line">   0x000000012000067c &lt;+44&gt;:	add.w	$r12,$r13,$r12</span><br><span class="line">   0x0000000120000680 &lt;+48&gt;:	move	$r4,$r12</span><br><span class="line">   0x0000000120000684 &lt;+52&gt;:	ld.d	$r22,$r3,24(0x18)</span><br><span class="line">   0x0000000120000688 &lt;+56&gt;:	addi.d	$r3,$r3,32(0x20)</span><br><span class="line">   0x000000012000068c &lt;+60&gt;:	jirl	$r0,$r1,0</span><br><span class="line">End of assembler dump.</span><br><span class="line">(gdb) disassemble func2</span><br><span class="line">Dump of assembler code for function func2:</span><br><span class="line">   0x0000000120000690 &lt;+0&gt;:	addi.d	$r3,$r3,-32(0xfe0)</span><br><span class="line">   0x0000000120000694 &lt;+4&gt;:	st.d	$r1,$r3,24(0x18)</span><br><span class="line">...</span><br><span class="line">   0x00000001200006d8 &lt;+72&gt;:	ld.d	$r1,$r3,24(0x18)</span><br><span class="line">   0x00000001200006dc &lt;+76&gt;:	ld.d	$r22,$r3,16(0x10)</span><br><span class="line">   0x00000001200006e0 &lt;+80&gt;:	addi.d	$r3,$r3,32(0x20)</span><br><span class="line">   0x00000001200006e4 &lt;+84&gt;:	jirl	$r0,$r1,0</span><br><span class="line">End of assembler dump.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ gcc main.c -O2 -g</span><br><span class="line">$ gdb a.out</span><br><span class="line">Dump of assembler code for function func1:</span><br><span class="line">   0x0000000120000658 &lt;+0&gt;:	add.w	$r4,$r4,$r5</span><br><span class="line">   0x000000012000065c &lt;+4&gt;:	jirl	$r0,$r1,0</span><br><span class="line">End of assembler dump.</span><br><span class="line">(gdb) disassemble func2</span><br><span class="line">Dump of assembler code for function func2:</span><br><span class="line">   0x0000000120000660 &lt;+0&gt;:	add.w	$r4,$r4,$r5</span><br><span class="line">   0x0000000120000664 &lt;+4&gt;:	addi.w	$r4,$r4,10(0xa)</span><br><span class="line">   0x0000000120000668 &lt;+8&gt;:	jirl	$r0,$r1,0</span><br><span class="line">End of assembler dump.</span><br></pre></td></tr></table></figure>
+
+<h2 id="用户态Hook"><a href="#用户态Hook" class="headerlink" title="用户态Hook"></a>用户态Hook</h2><p>简单实现，不处理pc相对寻址的情况</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> JUMP_CODE_SIZE 20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*func_ptr)(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s-%d: %d\n"</span>, __func__, __LINE__, a+b+c);</span><br><span class="line">	<span class="keyword">return</span> a+b+c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hook_handler</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s-%d: %d, %d, %d\n"</span>, __func__, __LINE__, a, b, c);</span><br><span class="line">	func_ptr(a, b, c);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">char</span> *<span class="title">do_jump</span><span class="params">(<span class="keyword">char</span> *from, <span class="keyword">char</span> *to)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rd, rj, off;</span><br><span class="line">        <span class="keyword">int</span> inst_pcaddi, inst_jirl, inst_ld_d;</span><br><span class="line">        <span class="keyword">int</span> to_addr_low, to_addr_high;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// PCADDI rd, si20 | 0 0 0 1 1 0 0 si20 rd</span></span><br><span class="line">        rd = <span class="number">17</span>;</span><br><span class="line">        off = <span class="number">12</span> &gt;&gt; <span class="number">2</span>;</span><br><span class="line">        inst_pcaddi = <span class="number">0x0c</span> &lt;&lt; (<span class="number">32</span> - <span class="number">7</span>) | off &lt;&lt; <span class="number">5</span> | rd ;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// LD.D rd, rj, si12 | 0 0 1 0 1 0 0 0 1 1 si12 rj rd</span></span><br><span class="line">        rd = <span class="number">17</span>;</span><br><span class="line">        rj = <span class="number">17</span>;</span><br><span class="line">        off = <span class="number">0</span>;</span><br><span class="line">        inst_ld_d = <span class="number">0xa3</span> &lt;&lt; <span class="number">22</span> | off &lt;&lt; <span class="number">10</span> | rj &lt;&lt; <span class="number">5</span> | rd ;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// JIRL rd, rj, offs | 0 1 0 0 1 1 offs[15:0] rj rd</span></span><br><span class="line">        rd = <span class="number">0</span>;</span><br><span class="line">        rj = <span class="number">17</span>;</span><br><span class="line">        off = <span class="number">0</span>;</span><br><span class="line">        inst_jirl = <span class="number">0x13</span> &lt;&lt; <span class="number">26</span> | off &lt;&lt; <span class="number">10</span> | rj &lt;&lt; <span class="number">5</span>| rd;</span><br><span class="line"></span><br><span class="line">        to_addr_low = (<span class="keyword">int</span>)((<span class="keyword">long</span>)to &amp; <span class="number">0xffffffff</span>);</span><br><span class="line">        to_addr_high = (<span class="keyword">int</span>)((<span class="keyword">long</span>)to &gt;&gt; <span class="number">32</span>);</span><br><span class="line"></span><br><span class="line">        *(<span class="keyword">int</span> *)from = inst_pcaddi;</span><br><span class="line">        *(<span class="keyword">int</span> *)(from + <span class="number">4</span>) = inst_ld_d;</span><br><span class="line">        *(<span class="keyword">int</span> *)(from + <span class="number">8</span>) = inst_jirl;</span><br><span class="line">        *(<span class="keyword">int</span> *)(from + <span class="number">12</span>) = to_addr_low;</span><br><span class="line">        *(<span class="keyword">int</span> *)(from + <span class="number">16</span>) = to_addr_high;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> from + <span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PAGE_MASK (~(page_size-1))</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">post_hook</span><span class="params">(<span class="keyword">void</span> *target, <span class="keyword">void</span> *handler)</span></span>&#123;	</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> page_size = sysconf(_SC_PAGE_SIZE);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> stolen = JUMP_CODE_SIZE;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> *trampoline = mmap(<span class="literal">NULL</span>, <span class="number">128</span>, PROT_READ|PROT_WRITE|PROT_EXEC, MAP_SHARED|MAP_ANONYMOUS, <span class="number">-1</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// turn [ trampoline pointer ] into [ hook target function pointer ]</span></span><br><span class="line">	func_ptr = (<span class="keyword">int</span> (*)(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>))trampoline;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// copy changed inst [ target: target+stolen ] </span></span><br><span class="line">	<span class="built_in">memcpy</span>(trampoline, target, stolen);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jump from [ trampoline + stolen ] to [ target + stolen ]</span></span><br><span class="line">	do_jump(trampoline+stolen, target+stolen);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// [ target ] jump to [ handler ]</span></span><br><span class="line">	<span class="comment">// 没有这个mprotect调用会出现段错误</span></span><br><span class="line">	mprotect((<span class="keyword">void</span>*)((<span class="keyword">long</span>)target &amp; PAGE_MASK), page_size, PROT_READ|PROT_WRITE|PROT_EXEC);</span><br><span class="line">	do_jump(target, handler);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">	post_hook((<span class="keyword">void</span> *)func, (<span class="keyword">void</span> *)hook_handler);</span><br><span class="line">	func(<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="内核态Hook"><a href="#内核态Hook" class="headerlink" title="内核态Hook"></a>内核态Hook</h2><p>我们实现了完整的处理各种异常条件的内核 LA inlineHook, 暂不公开</p>
+<h1 id="反汇编器"><a href="#反汇编器" class="headerlink" title="反汇编器"></a>反汇编器</h1><p>有LoongArch64 机器的情况下，直接用gdb就可以做到</p>
+<p>用一个简单的脚本实现:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">opcodes =  <span class="string">","</span>.join(hex(i) <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">0x28c0208c</span>, <span class="number">0x28c0c18c</span>, <span class="number">0x24000d8c</span>, <span class="number">0x0348018c</span>, <span class="number">0x44008980</span>])</span><br><span class="line"></span><br><span class="line">c_code = <span class="string">"""</span></span><br><span class="line"><span class="string">int opcodes[] = &#123; %s &#125;;</span></span><br><span class="line"><span class="string">void main() &#123; ((void (*)() )opcodes)(); &#125;</span></span><br><span class="line"><span class="string">"""</span> % opcodes</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"main.c"</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(c_code)</span><br><span class="line"></span><br><span class="line">os.system(<span class="string">"gcc main.c -g"</span>)</span><br><span class="line">os.system(<span class="string">"gdb -batch -ex 'file a.out' -ex 'disassemble/rs opcodes'"</span>)</span><br><span class="line">os.system(<span class="string">"rm main.c a.out"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>效果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ .&#x2F;t.py</span><br><span class="line">Dump of assembler code for function opcodes:</span><br><span class="line">   0x0000000120008000 &lt;+0&gt;:	8c 20 c0 28	ld.d	$r12,$r4,8(0x8)</span><br><span class="line">   0x0000000120008004 &lt;+4&gt;:	8c c1 c0 28	ld.d	$r12,$r12,48(0x30)</span><br><span class="line">   0x0000000120008008 &lt;+8&gt;:	8c 0d 00 24	ldptr.w	$r12,$r12,12(0xc)</span><br><span class="line">   0x000000012000800c &lt;+12&gt;:	8c 01 48 03	andi	$r12,$r12,0x200</span><br><span class="line">   0x0000000120008010 &lt;+16&gt;:	80 89 00 44	bnez	$r12,136(0x88) # 0x120008098</span><br><span class="line">End of assembler dump.</span><br></pre></td></tr></table></figure>
+
+<p>在没有 LoongArch64 机器的情况下，需要用软件（反汇编器）实现 LA 指令的反汇编，为了达到这个目的，我们正在开发支持 LA 的反汇编器，后续合适的时机可能会公开。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://github.com/loongson/LoongArch-Documentation/releases/latest/download/LoongArch-Vol1-v1.00-CN.pdf" target="_blank" rel="noopener">LoongArch64 指令手册</a></p>
+<p><a href="https://pan.educg.net/api/v3/file/get/3858/20210404-%E5%BC%A0%E7%A6%8F%E6%96%B0-loongarch.pdf?sign=o-I4vKLPH-WqqXD8AmGkEK3PraV3kdOkAgXbZPL7t4A%3D%3A0" target="_blank" rel="noopener">LoongArch 指令集介绍.pdf</a>  </p>
+<p><a href="https://loongarch.dev/zh-cn/" target="_blank" rel="noopener">LoongArch 官博</a>    </p>
+<p><a href="https://github.com/loongson" target="_blank" rel="noopener">龙芯 github 地址</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/24/LoongArch/" data-id="cmd5slr2f000h0lo127ytaqv8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../12/27/CVE-2021-22555/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CVE-2021-22555漏洞分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../../2020/07/06/%E7%AA%A5%E6%8E%A2%E6%9C%89%E6%96%B9%E2%80%94%E2%80%94%E8%B0%83%E8%AF%95Released%20SGX%20Enclave/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">窥探有方——调试Released SGX Enclave</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/03/">三月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2023/03/10/race_windown/">Linux 内核利用技巧 Racing against the clock</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/06/cve-2022-1015/">CVE-2022-1015 nf_tables 提权漏洞分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/01/slabUaf-to-pageUaf/">Linux 内核利用技巧 Slab UAF to Page UAF</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/07/04/CVE-2022-23222/">CVE-2022-23222  eBPF verifier 提权漏洞利用分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/02/10/CVE-2021-4034/">CVE-2021-4034 pkexec 本地提权漏洞利用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 IceSword Lab<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../research" class="mobile-nav-link">Research</a>
+  
+    <a href="../../../../vulnerabilities" class="mobile-nav-link">Vulnerabilities</a>
+  
+    <a href="../../../../recruitment" class="mobile-nav-link">Recruitment</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

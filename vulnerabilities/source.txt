@@ -1,0 +1,601 @@
+cve-2015-7740	|Huawei	|Denial of service	|anonymous
+cve-2015-7799	|Linux	|Denial of service	|Yonggang Guo
+cve-2015-8223	|Huawei	|Denial of service	|anonymous
+cve-2015-8225	|Huawei	|Denial of service	|anonymous
+cve-2015-8226	|Huawei	|Denial of service	|anonymous
+cve-2015-8337	|Huawei	|Denial of service	|Guo Yonggang and Zhao Jianqiang
+cve-2015-8543	|Linux	|Denial of service	|Yonggang Guo
+cve-2015-8678	|Huawei	|Denial of service	|Guo Yonggang and anonymous
+cve-2015-8679	|Huawei	|Denial of service	|Guo Yonggang and anonymous
+cve-2016-0048	|Microsoft	|Elevation of Privilege	|fanxiaocao and pjf
+cve-2016-0096	|Microsoft	|Elevation of Privilege	|fanxiaocao and pjf
+cve-2016-0805	|Google	|Elevation of Privilege	|anonymous
+cve-2016-0844	|Google	|Elevation of Privilege	|anonymous , pjf, Jianqiang Zhao
+cve-2016-1495	|Huawei	|Elevation of privilege	|Zhao Jianqiang
+cve-2016-1496	|Huawei	|Denial of service	|Zhao Jianqiang
+cve-2016-2409	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2410	|Google	|Elevation of Privilege	|Jianqiang Zhao, pjf, and anonymous
+cve-2016-2411	|Google	|Elevation of Privilege	|Jianqiang Zhao, pjf, and anonymous
+cve-2016-2434	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2435	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2436	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2441	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2442	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2444	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2445	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2446	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2490	|Google	|Elevation of Privilege	|Jianqiang Zhao and pjf
+cve-2016-2491	|Google	|Elevation of Privilege	|Jianqiang Zhaoand pjf
+cve-2016-2492	|Google	|Elevation of Privilege	|anonymous and pjf
+cve-2016-3252	|Microsoft	|Elevation of Privilege	|fanxiaocao and pjf
+cve-2016-3767	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3769	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-3795	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3796	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3802	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-3804	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3805	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3806	|Google	|Elevation of Privilege	|anonymous and pjf
+cve-2016-3807	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-3808	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-3810	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-3814	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-3816	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-3852	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-3858	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-3865	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3866	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3867	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3869	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3901	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3904	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-3906	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-3907	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-3930	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-3935	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-3940	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-5344	|Qualcomm	|Code Execution	|Jianqiang Zhao
+cve-2016-5346	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-5863	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2016-5864	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-5868	|Qualcomm	|Code Execution	|Yonggang Guo, Jianqiang Zhao and pjf
+cve-2016-5869	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao(@jianqiangzhao) and pjf(weibo.com/jfpan)
+cve-2016-6672	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6673	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-6677	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-6681	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-6682	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-6686	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-6687	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-6688	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-6690	|Google	|Denial of service	|anonymous and pjf
+cve-2016-6698	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-6725	|Google	|Remote code execution	|anonymous and pjf
+cve-2016-6738	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6739	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-6740	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6741	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6742	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6744	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6745	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6778	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6779	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-6781	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-6782	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-6788	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-7211	|Microsoft	|Elevation of Privilege	|fanxiaocao and pjf
+cve-2016-7260	|Microsoft	|Elevation of Privilege	|fanxiaocao and pjf
+cve-2016-8396	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-8401	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-8402	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-8403	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-8404	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-8408	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-8409	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-8416	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-8464	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-8475	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-8478	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2016-8759	|Huawei	|Elevation of privilege	|Zhao Jianqiang
+cve-2016-8760	|Huawei	|Elevation of privilege	|Zhao Jianqiang
+cve-2016-8761	|Huawei	|Elevation of privilege	|Zhao Jianqiang
+cve-2016-8768	|Huawei	|Elevation of privilege	|Zhao Jianqiang and anonymous
+cve-2016-8774	|Huawei	|Elevation of privilege	|Zhao Jianqiang
+cve-2016-8775	|Huawei	|Elevation of privilege	|Zhao Jianqiang
+cve-2016-10285	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2016-10288	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-10289	|Google	|Elevation of privilege	|Yonggang Guo
+cve-2016-10290	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2016-10294	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-10295	|Google	|Information disclosure	|anonymous and pjf
+cve-2016-10296	|Google	|Information disclosure	|anonymous and pjf
+cve-2017-0329	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0332	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0432	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0434	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0445	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2017-0446	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0447	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0458	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2017-0459	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2017-0465	|Google	|Elevation of privilege	|Yonggang Guo
+cve-2017-0500	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0501	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0502	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0503	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0509	|Huawei	|Elevation of privilege	|anonymous
+cve-2017-0518	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2017-0519	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2017-0524	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0529	|Google	|Information disclosure	|anonymous and pjf
+cve-2017-0533	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2017-0534	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2017-0536	|Google	|Information disclosure	|anonymous and pjf
+cve-2017-0564	|Google	|Elevation of privilege	|Yonggang Guo
+cve-2017-0566	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0573	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0581	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0616	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0617	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0624	|Google	|Information disclosure	|anonymous and pjf
+cve-2017-0649	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0744	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-0746	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-0749	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-0862	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf
+cve-2017-2413	|Apple	|Code Execution	|Simon Huang and pjf
+cve-2017-5868	|Qualcomm	|Elevation of privilege	|Yonggang Guo, Jianqiang Zhao and pjf
+cve-2017-5869	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-6421	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-6425	|Google	|Information disclosure	|Jianqiang Zhao and pjf
+cve-2017-6426	|Google	|Information disclosure	|anonymous and pjf
+cve-2017-7370	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-8140	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8141	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8142	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8148	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8160	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8202	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8203	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8204	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8205	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-8233	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf
+cve-2017-8243	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-8244	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-8245	|Qualcomm	|Code Execution	|Yonggang Guo
+cve-2017-8247	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-8251	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-8257	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-8258	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-8261	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf
+cve-2017-8266	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-8267	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-8268	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf
+cve-2017-8269	|Google	|Information disclosure	|Yonggang Guo
+cve-2017-8270	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-8271	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-8272	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-8277	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-8279	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-8280	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2017-8281	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-8470	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8474	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8476	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8482	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8485	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8490	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8666	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8677	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8678	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8679	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8709	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-8719	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-9677	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-9687	|Qualcomm	|Elevation of privilege	|Yonggang Guo (gyghit)
+cve-2017-9691	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-9692	|Qualcomm	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-9695	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao(@jianqiangzhao) and pjf(weibo.com/jfpan)
+cve-2017-9697	|Qualcomm	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-9699	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao(@jianqiangzhao)
+cve-2017-9705	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-9710	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-9718	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2017-9722	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-9723	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-10997	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-11023	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11024	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11025	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11030	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11033	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11035	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11036	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11044	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11048	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-11049	|Qualcomm	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-11065	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11081	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-11082	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-11849	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-11850	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2017-12146	|Google	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-13271	|Google	|Elevation of privilege	|Yonggang Guo
+cve-2017-13273	|Google	|Elevation of privilege	|Yonggang Guo
+cve-2017-13307	|Google	|Elevation of privilege	|Yonggang Guo
+cve-2017-14877	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-14880	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-14881	|Qualcomm	|Elevation of privilege	|Yonggang Guo
+cve-2017-14883	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-14884	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-14885	|Qualcomm	|Elevation of privilege	|anonymous
+ccve-2017-14885	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-14887	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-14888	|Google	|Elevation of privilege	|anonymous, pjf (weibo.com/jfpan)
+cve-2017-14888	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-14889	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-14890	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-14892	|Qualcomm	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-14894	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-15330	|Huawei	|Elevation of privilege	|Guo Yonggang
+cve-2017-15821	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-15823	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-15830	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-15831	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-15832	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-15834	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao(@jianqiangzhao) and pjf(weibo.com/jfpan)
+cve-2017-15836	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-15842	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-15843	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-15854	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-15856	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2017-15858	|Qualcomm	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-18070	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-18148	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2017-18149	|Qualcomm	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-18150	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2017-18151	|Qualcomm	|Elevation of privilege	|Yonggang Guo (@guoygang)
+cve-2017-18153	|Google	|Elevation of privilege	|anonymous and pjf
+cve-2017-1000380	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2018-0829	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2018-0830	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2018-0887	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2018-0904	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2018-0960	|Microsoft	|Information Disclosure	|fanxiaocao and pjf
+cve-2018-3565	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-3566	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-3567	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-3568	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-3570	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-3577	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-4132	|Apple	|Elevation of privilege	|Axis and pjf
+cve-2018-4138	|Apple	|Elevation of privilege	|Axis and pjf
+cve-2018-5826	|Google	|Information disclosure	|Yonggang Guo
+cve-2018-5828	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-5830	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-5851	|Qualcomm	|Elevation of privilege	|anonymous and pjf
+cve-2018-5855	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-5858	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-5864	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-5865	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-5883	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-5906	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-5911	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-8157	|Microsoft	|Remote Code Execution	|Ying Xinlei
+cve-2018-8158	|Microsoft	|Remote Code Execution	|Ying Xinlei
+cve-2018-8246	|Microsoft	|Information Disclosure	|Ying Xinlei
+cve-2018-8248	|Microsoft	|Remote Code Execution	|Ying Xinlei
+cve-2018-8375	|Microsoft	|Remote Code Execution	|Ying Xinlei
+cve-2018-8382	|Microsoft	|Information Disclosure	|Ying Xinlei
+cve-2018-9415	|Google	|Elevation of privilege	|Yonggang Guo
+cve-2018-9417	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2018-9516	|Google	|Elevation of privilege	|Jianqiang Zhao and pjf
+cve-2018-11270	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-11273	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-11276	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-11286	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-11293	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-11295	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-11297	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-11301	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-11302	|Google	|Elevation of privilege	|anonymous, pjf (weibo.com/jfpan)
+cve-2018-11302	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-11823	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2018-11825	|Google	|Elevation of privilege	|anonymous
+cve-2018-11832	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2018-11832	|Qualcomm	|Elevation of privilege	|Jianqiang Zhao
+cve-2018-11886	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-11905	|Google	|Elevation of privilege	|anonymous and pjf (weibo.com/jfpan)
+cve-2018-11905	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2018-11987	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2018-11988	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2018-13890	|Google	|Elevation of privilege	|anonymous
+cve-2019-0620	|Microsoft	|Remote Code Execution	|HongZhenhao
+cve-2019-0718	|Microsoft	|Denial of Service	|HongZhenhao
+cve-2019-0720	|Microsoft	|Remote Code Execution	|HongZhenhao
+cve-2019-1309	|Microsoft	|Denial of Service	|HongZhenhao
+cve-2019-2032	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao (@jianqiangzhao)
+cve-2019-2139	|Google	|Information Disclosure	|Rong Fan (fanrong1992) and Simon Huang (@HuangShaomang)
+cve-2019-2201	|Google	|Remote Code Execution	|Rong Fan (fanrong1992) and Simon Huang (@HuangShaomang)
+cve-2019-2206	|Google	|Elevation of privilege	|anonymous
+cve-2019-2217	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao (@jianqiangzhao)
+cve-2019-2297	|Google	|Elevation of privilege	|anonymous
+cve-2019-2299	|Google	|Elevation of privilege	|anonymous
+cve-2019-2302	|Google	|Elevation of privilege	|anonymous
+cve-2019-2302	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2019-2304	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-2312	|Google	|Elevation of privilege	|anonymous
+cve-2019-2312	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2019-2314	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2019-2314	|Google	|Elevation of privilege	|anonymous
+cve-2019-2333	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-8701	|Apple	|Elevation of privilege	|Simon Huang(@HuangShaomang), Rong Fan(@fanrong1992) and pjf
+cve-2019-9248	|Google	|Elevation of privilege	|anonymous
+cve-2019-9271	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-9375	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao
+cve-2019-9386	|Google	|Elevation of privilege	|anonymous
+cve-2019-9443	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-9446	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-9447	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-9448	|Google	|Elevation of privilege	|anonymous
+cve-2019-9449	|Google	|Elevation of privilege	|anonymous
+cve-2019-9450	|Google	|Elevation of privilege	|anonymous
+cve-2019-9451	|Google	|Elevation of privilege	|anonymous
+cve-2019-9452	|Google	|Elevation of privilege	|anonymous
+cve-2019-9456	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-9470	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-9471	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-10506	|Google	|Elevation of privilege	|anonymous
+cve-2019-10507	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-10542	|Google	|Elevation of privilege	|anonymous, pjf (weibo.com/jfpan)
+cve-2019-10542	|Qualcomm	|Elevation of privilege	|anonymous, pjf (weibo.com/jfpan)
+cve-2019-10556	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-10563	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2019-10566	|Google	|Elevation of privilege	|anonymous
+cve-2019-10584	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2019-10584	|Google	|Information Disclosure	|anonymous
+cve-2019-10620	|Google	|Elevation of privilege	|Jianqiang Zhao (@jianqiangzhao) and pjf (weibo.com/jfpan)
+cve-2019-10626	|Qualcomm	|Out of bounds memory access	|anonymous
+cve-2019-14038	|Qualcomm	|Out of Buffer write	|anonymous
+cve-2019-14038	|Google	|Out of Buffer write	|anonymous
+cve-2019-14039	|Qualcomm	|Out of Buffer write	|anonymous
+cve-2019-14039	|Google	|Out of Buffer write	|anonymous
+cve-2020-0004	|Google	|Denial of Service	|Rong Fan (fanrong1992) and Simon Huang (@HuangShaomang)
+cve-2020-0005	|Google	|Elevation of privilege	|anonymous
+cve-2020-0045	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao (@jianqiangzhao)
+cve-2020-0055	|Google	|Information Disclosure	|anonymous
+cve-2020-0056	|Google	|Information Disclosure	|anonymous
+cve-2020-0057	|Google	|Information Disclosure	|anonymous
+cve-2020-0058	|Google	|Information Disclosure	|anonymous
+cve-2020-0059	|Google	|Information Disclosure	|anonymous
+cve-2020-0068	|Google	|Out of bounds read	|anonymous
+cve-2020-0138	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao (@jianqiangzhao)
+cve-2020-0144	|Google	|Out of bounds read	|anonymous
+cve-2020-0145	|Google	|Information Disclosure	|anonymous
+cve-2020-0146	|Google	|Information Disclosure	|anonymous
+cve-2020-0147	|Google	|Information Disclosure	|anonymous
+cve-2020-0148	|Google	|Out of bounds read	|anonymous
+cve-2020-0149	|Google	|Information Disclosure	|anonymous
+cve-2020-0157	|Google	|Information Disclosure	|anonymous
+cve-2020-0213	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao (@jianqiangzhao)
+cve-2020-0214	|Google	|Out of bounds read	|anonymous
+cve-2020-0220	|Google	|Integer Overflow	|anonymous
+cve-2020-0223	|Google	|Elevation of privilege	|anonymous
+cve-2020-0225	|Google	|Elevation of privilege	|anonymous
+cve-2020-0235	|Google	|Elevation of privilege	|anonymous
+cve-2020-0282	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao (@jianqiangzhao)
+cve-2020-0335	|Google	|Information Disclosure	|anonymous
+cve-2020-0348	|Google	|Information Disclosure	|anonymous
+cve-2020-0349	|Google	|Information Disclosure	|anonymous
+cve-2020-0435	|Google	|Elevation of privilege	|Hao Liu and Jianqiang Zhao (@jianqiangzhao)
+cve-2020-0617	|Microsoft	|Denial of Service	|HongZhenhao
+cve-2020-0622	|Microsoft	|Information Disclosure	|liuxiaoliang and pjf
+cve-2020-0690	|Microsoft	|Elevation of Privilege	|liuxiaoliang and pjf
+cve-2020-0709	|Microsoft	|Elevation of Privilege	|liuxiaoliang and pjf
+cve-2020-0714	|Microsoft	|Information Disclosure	|liuxiaoliang and pjf
+cve-2020-0732	|Microsoft	|Elevation of Privilege	|liuxiaoliang and pjf
+cve-2020-0746	|Microsoft	|Information Disclosure	|liuxiaoliang and pjf
+cve-2020-0888	|Microsoft	|Elevation of Privilege	|liuxiaoliang and pjf
+cve-2020-11305	|Qualcomm	|Integer Overflow	|anonymous
+cve-2020-11308	|Google	|Improper Validation of Array Index in BOOT	|anonymous
+cve-2020-11308	|Qualcomm	|Improper Validation of Array Index in BOOT	|anonymous
+cve-2020-27021	|Google	|Elevation of privilege	|anonymous
+cve-2020-27027	|Google	|Elevation of privilege	|anonymous
+cve-2020-27028	|Google	|Elevation of privilege	|anonymous
+cve-2021-0370	|Google	|Elevation of privilege	|anonymous
+cve-2021-0540	|Google	|Out of bounds	|anonymous
+cve-2021-0541	|Google	|Out of bounds	|anonymous
+cve-2021-0543	|Google	|Out of bounds	|anonymous
+cve-2021-0544	|Google	|Out of bounds	|anonymous
+cve-2021-0545	|Google	|Out of bounds	|anonymous
+cve-2021-0546	|Google	|Out of bounds	|anonymous
+cve-2021-0844	|Google	|OOB access	|anonymous
+cve-2021-1895	|Qualcomm	|Integer Overflow to Buffer Overflow in Boot	|anonymous
+cve-2021-1897	|Qualcomm	|integer overflow	|anonymous
+cve-2021-1897	|Google	|integer overflow	|anonymous
+cve-2021-1899	|Qualcomm	|out of bounds	|anonymous
+cve-2021-1899	|Google	|out of bounds	|anonymous
+cve-2021-1901	|Qualcomm	|integer overflow	|anonymous
+cve-2021-1901	|Google	|integer overflow	|anonymous
+cve-2021-1928	|Qualcomm	|OOB access in Boot	|anonymous
+cve-2021-1941	|Qualcomm	|OOB access in Wlan	|anonymous
+cve-2021-1941	|Google	|OOB access in Wlan	|anonymous
+cve-2021-1943	|Qualcomm	|Buffer Over-read	|anonymous
+cve-2021-1943	|Google	|Buffer Over-read	|anonymous
+cve-2021-1945	|Qualcomm	|Buffer Over-read	|anonymous
+cve-2021-1945	|Google	|Buffer Over-read	|anonymous
+cve-2021-1948	|Qualcomm	|OOB access in Wlan	|anonymous
+cve-2021-1948	|Google	|OOB access in Wlan	|anonymous
+cve-2021-1954	|Qualcomm	|Buffer Over-read	|anonymous
+cve-2021-1954	|Google	|Buffer Over-read	|anonymous
+cve-2021-1964	|Qualcomm	|OOB access	|anonymous
+cve-2021-1964	|Google	|OOB access	|anonymous
+cve-2021-1977	|Qualcomm	|OOB access	|anonymous
+cve-2021-1977	|Google	|OOB access	|anonymous
+cve-2021-30304	|Qualcomm	|OOB access	|anonymous
+cve-2021-35069	|Qualcomm	|OOB access	|anonymous
+cve-2021-35069	|Google	|OOB access	|anonymous
+cve-2021-35071	|Google	|OOB access	|anonymous
+cve-2021-35081	|Google	|OOB access	|anonymous
+cve-2021-35084	|Google	|OOB access	|anonymous
+cve-2021-35084	|Qualcomm	|OOB access	|anonymous
+cve-2021-35085	|Google	|OOB access	|anonymous
+cve-2021-35085	|Qualcomm	|OOB access	|anonymous
+cve-2021-35088	|Google	|OOB access	|anonymous
+cve-2021-35088	|Qualcomm	|OOB access	|anonymous
+cve-2021-35092	|Google	|OOB access	|anonymous
+cve-2021-35103	|Google	|OOB access	|anonymous
+cve-2021-35103	|Qualcomm	|OOB access	|anonymous
+cve-2021-35106	|Google	|OOB access	|anonymous
+cve-2021-35106	|Qualcomm	|OOB access	|anonymous
+cve-2021-35117	|Google	|OOB access	|anonymous
+cve-2021-35119	|Google	|Buffer Overflow	|anonymous
+cve-2022-2984	|Google	|OOB access	|anonymous
+cve-2022-4379	|Linux	|UAF	|Xingyuan Mo (hdthky0@gmail.com)
+cve-2022-20087	|Mediatek	|Elevation of privilege	|anonymous
+cve-2022-20094	|Mediatek	|Elevation of privilege	|anonymous
+cve-2022-20095	|Mediatek	|Elevation of privilege	|anonymous
+cve-2022-20236	|Google	|Buffer Overflow	|anonymous
+cve-2022-20238	|Google	|Buffer Overflow	|anonymous
+cve-2022-20239	|Google	|Buffer Overflow	|anonymous
+cve-2022-20385	|Google	|Buffer Overflow	|anonymous
+cve-2022-21746	|Mediatek	|EoP	|anonymous
+cve-2022-21747	|Mediatek	|EoP	|anonymous
+cve-2022-21750	|Mediatek	|EoP	|anonymous
+cve-2022-21751	|Mediatek	|EoP	|anonymous
+cve-2022-21752	|Mediatek	|EoP	|anonymous
+cve-2022-21753	|Mediatek	|EoP	|anonymous
+cve-2022-21754	|Mediatek	|EoP	|anonymous
+cve-2022-21755	|Mediatek	|EoP	|anonymous
+cve-2022-21756	|Mediatek	|EoP	|anonymous
+cve-2022-21760	|Mediatek	|EoP	|anonymous
+cve-2022-21761	|Mediatek	|EoP	|anonymous
+cve-2022-21762	|Mediatek	|EoP	|anonymous
+cve-2022-21789	|Mediatek	|EoP	|anonymous
+cve-2022-21790	|Mediatek	|EoP	|anonymous
+cve-2022-21791	|Mediatek	|EoP	|anonymous
+cve-2022-22078	|Google	|Buffer Overflow	|anonymous
+cve-2022-22079	|Google	|OOB access	|anonymous
+cve-2022-25663	|Qualcomm	|OOB access	|anonymous
+cve-2022-32639	|Mediatek	|EoP	|anonymous
+cve-2022-32644	|Mediatek	|EoP	|anonymous
+cve-2022-32645	|Mediatek	|EoP	|anonymous
+cve-2022-33217	|Google	|Buffer Overflow	|anonymous
+cve-2022-33303	|Qualcomm	|Elevation of privilege	|anonymous
+cve-2022-33303	|Google	|OOB access	|anonymous
+cve-2022-38672	|Google	|OOB access	|anonymous
+cve-2022-38673	|Google	|OOB access	|anonymous
+cve-2022-38674	|Unisoc	|EoP	|anonymous
+cve-2022-38675	|Unisoc	|EoP	|anonymous
+cve-2022-38676	|Google	|OOB access	|anonymous
+cve-2022-38680	|Unisoc	|EoP	|anonymous
+cve-2022-38681	|Unisoc	|EoP	|anonymous
+cve-2022-38686	|Unisoc	|EoP	|anonymous
+cve-2022-38690	|Google	|OOB access	|anonymous
+cve-2022-39105	|Google	|Buffer Overflow	|anonymous
+cve-2022-39106	|Google	|OOB access	|anonymous
+cve-2022-39116	|Unisoc	|EoP	|anonymous
+cve-2022-39129	|Google	|OOB access	|anonymous
+cve-2022-39130	|Google	|OOB access	|anonymous
+cve-2022-39131	|Google	|OOB access	|anonymous
+cve-2022-39132	|Google	|OOB access	|anonymous
+cve-2022-39133	|Google	|OOB access	|anonymous
+cve-2022-39134	|Google	|OOB access	|anonymous
+cve-2022-40768	|Linux	|UAF	|Xingyuan Mo (hdthky0@gmail.com)
+cve-2022-42755	|Google	|OOB access	|anonymous
+cve-2022-42756	|Google	|OOB access	|anonymous
+cve-2022-42770	|Google	|OOB access	|anonymous
+cve-2022-42771	|Google	|OOB access	|anonymous
+cve-2022-42772	|Google	|OOB access	|anonymous
+cve-2022-42783	|Unisoc	|EoP	|anonymous
+cve-2022-44425	|Google	|OOB access	|anonymous
+cve-2022-44425	|Unisoc	|EoP	|anonymous
+cve-2022-44426	|Google	|OOB access	|anonymous
+cve-2022-44426	|Unisoc	|EoP	|anonymous
+cve-2022-44440	|Unisoc	|EoP	|anonymous
+cve-2022-44441	|Unisoc	|EoP	|anonymous
+cve-2022-44442	|Unisoc	|EoP	|anonymous
+cve-2022-44443	|Unisoc	|EoP	|anonymous
+cve-2022-44444	|Unisoc	|EoP	|anonymous
+cve-2022-44445	|Unisoc	|EoP	|anonymous
+cve-2022-44446	|Unisoc	|EoP	|anonymous
+cve-2022-44448	|Unisoc	|EoP	|anonymous
+cve-2022-47331	|Google	|OOB access	|anonymous
+cve-2022-47350	|Unisoc	|EoP	|anonymous
+cve-2022-47352	|Unisoc	|EoP	|anonymous
+cve-2022-47365	|Unisoc	|EoP	|anonymous
+cve-2022-47366	|Unisoc	|EoP	|anonymous
+cve-2022-47368	|Unisoc	|EoP	|anonymous
+cve-2022-47369	|Unisoc	|EoP	|anonymous
+cve-2022-47451	|Unisoc	|EoP	|anonymous
+cve-2022-47469	|Google	|OOB access	|anonymous
+cve-2022-47469	|Unisoc	|EoP	|anonymous
+cve-2022-47470	|Google	|OOB access	|anonymous
+cve-2022-47470	|Unisoc	|EoP	|anonymous
+cve-2022-47486	|Google	|OOB access	|anonymous
+cve-2022-47486	|Unisoc	|EoP	|anonymous
+cve-2022-47488	|Google	|OOB access	|anonymous
+cve-2022-47488	|Unisoc	|EoP	|anonymous
+cve-2022-47946	|Linux	|UAF	|Xingyuan Mo (hdthky0@gmail.com)
+cve-2022-48389	|Unisoc	|EoP	|anonymous
+cve-2022-48438	|Google	|OOB access	|anonymous
+cve-2022-48438	|Unisoc	|EoP	|anonymous
+cve-2022-48451	|Unisoc	|EoP	|anonymous
+cve-2022-48453	|Unisoc	|EoP	|anonymous
+cve-2022-48456	|Google	|OOB access	|anonymous
+cve-2022-48456	|Unisoc	|EoP	|anonymous
+cve-2022-48461	|Google	|OOB access	|anonymous
+cve-2022-48461	|Unisoc	|EoP	|anonymous
+cve-2023-1513	|Linux	|UAF	|Xingyuan Mo (hdthky0@gmail.com)
+cve-2023-1652	|Linux	|UAF	|Xingyuan Mo (hdthky0@gmail.com)
+cve-2023-2430	|Linux	|UAF	|Xingyuan Mo
+cve-2023-5972	|Linux	|UAF	|Xingyuan Mo
+cve-2023-6622	|Linux	|UAF	|Xingyuan Mo
+cve-2023-6679	|Linux	|UAF	|Xingyuan Mo
+cve-2023-6817	|Linux	|UAF	|Xingyuan Mo
+cve-2023-7042	|Linux	|UAF	|Xingyuan Mo
+cve-2023-20626	|Mediatek	|EoP	|anonymous
+cve-2023-30866	|Unisoc	|EoP	|anonymous
+cve-2023-32807	|Mediatek	|EoP	|anonymous
+cve-2023-33250	|Linux	|UAF	|Xingyuan Mo
+cve-2023-38409	|Linux	|UAF	|Xingyuan Mo
+cve-2023-40639	|Unisoc	|EoP	|anonymous
+cve-2023-40640	|Unisoc	|EoP	|anonymous
+cve-2023-40650	|Unisoc	|EoP	|anonymous
+cve-2023-42679	|Unisoc	|EoP	|anonymous
+cve-2023-42680	|Unisoc	|EoP	|anonymous
+cve-2023-42682	|Unisoc	|EoP	|anonymous
+cve-2023-42683	|Unisoc	|EoP	|anonymous
+cve-2023-42684	|Unisoc	|EoP	|anonymous
+cve-2023-42697	|Unisoc	|EoP	|anonymous
+cve-2023-42698	|Unisoc	|EoP	|anonymous
+cve-2023-42699	|Unisoc	|EoP	|anonymous
+cve-2023-42724	|Unisoc	|EoP	|anonymous
+cve-2023-42725	|Unisoc	|EoP	|anonymous
+cve-2023-42726	|Unisoc	|EoP	|anonymous
+cve-2023-42727	|Unisoc	|EoP	|anonymous
+cve-2023-42730	|Unisoc	|EoP	|anonymous
+cve-2023-50431	|Linux	|UAF	|Xingyuan Mo
+cve-2024-27364	|Samsung	|EoP	|anonymous
+cve-2024-27365	|Samsung	|EoP	|anonymous
+cve-2024-27366	|Samsung	|EoP	|anonymous
+cve-2024-27367	|Samsung	|EoP	|anonymous
+cve-2024-27368	|Samsung	|EoP	|anonymous
+cve-2024-27369	|Samsung	|EoP	|anonymous
+cve-2024-27370	|Samsung	|EoP	|anonymous
+cve-2024-27371	|Samsung	|EoP	|anonymous
+cve-2024-27372	|Samsung	|EoP	|anonymous
+cve-2024-27373	|Samsung	|EoP	|anonymous
+cve-2024-27374	|Samsung	|EoP	|anonymous
+cve-2024-27375	|Samsung	|EoP	|anonymous
+cve-2024-27376	|Samsung	|EoP	|anonymous
+cve-2024-27377	|Samsung	|EoP	|anonymous
+cve-2024-27378	|Samsung	|EoP	|anonymous
+cve-2024-27379	|Samsung	|EoP	|anonymous
+cve-2024-27380	|Samsung	|EoP	|anonymous
+cve-2024-27381	|Samsung	|EoP	|anonymous
+cve-2024-27382	|Samsung	|EoP	|anonymous
+cve-2024-27383	|Samsung	|EoP	|anonymous
+cve-2024-27385	|Samsung	|EoP	|anonymous
+cve-2024-27386	|Samsung	|EoP	|anonymous
+cve-2024-27387	|Samsung	|EoP	|anonymous

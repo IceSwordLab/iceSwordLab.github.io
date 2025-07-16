@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-114832940-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>利用一个竞态漏洞root三星s8的方法 | IceSword Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="author : zjq(@spinlock2014) of IceSword Lab , Qihoo 360   &amp;emsp;  在安卓阵营中，三星手机可以说是最重视安全的了，各种mitigation技术都是早于官方系统应用到自己手机上，并且加入了KNOX技术，在内核层设置了重重校验，提高了手机root难度。17年下半年，研究过一段时间三星手机s8的内核安全问题，发现了一些比较有意思的漏洞。本文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用一个竞态漏洞root三星s8的方法">
+<meta property="og:url" content="http://yoursite.com/2018/04/20/samsung-root/index.html">
+<meta property="og:site_name" content="IceSword Lab">
+<meta property="og:description" content="author : zjq(@spinlock2014) of IceSword Lab , Qihoo 360   &amp;emsp;  在安卓阵营中，三星手机可以说是最重视安全的了，各种mitigation技术都是早于官方系统应用到自己手机上，并且加入了KNOX技术，在内核层设置了重重校验，提高了手机root难度。17年下半年，研究过一段时间三星手机s8的内核安全问题，发现了一些比较有意思的漏洞。本文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/0.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/4.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/5.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/6.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/7.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/8.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/9.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/10.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/11.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/12.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/13.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/14.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/15.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/16.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/17.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/20/samsung-root/18.png">
+<meta property="article:published_time" content="2018-04-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-16T10:02:19.296Z">
+<meta property="article:author" content="IceSword Lab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/20/samsung-root/0.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="IceSword Lab" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">IceSword Lab</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">Work hard in silence , let success make the noise.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../../../research">Research</a>
+        
+          <a class="main-nav-link" href="../../../../vulnerabilities">Vulnerabilities</a>
+        
+          <a class="main-nav-link" href="../../../../recruitment">Recruitment</a>
+        
+          <a class="main-nav-link" href="../../../../about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018/04/20/samsung-root" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2018-04-20T00:00:00.000Z" itemprop="datePublished">2018-04-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用一个竞态漏洞root三星s8的方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>author : <a href="http://weibo.com/spinlock2014" target="_blank">zjq(@spinlock2014)</a> of IceSword Lab , Qihoo 360</p>
+<hr>
+<p><span id="top"></span></p>
+<p>&emsp;  在安卓阵营中，三星手机可以说是最重视安全的了，各种mitigation技术都是早于官方系统应用到自己手机上，并且加入了KNOX技术，在内核层设置了重重校验，提高了手机root难度。17年下半年，研究过一段时间三星手机s8的内核安全问题，发现了一些比较有意思的漏洞。本文中，将介绍一个race condition漏洞，利用此漏洞绕过KALSR，PXN，CFI，KNOX2.8等拿到了s8内核root权限。目前这些漏洞都已经被修复。</p>
+<h2 id="0x0-MobiCore驱动的提权漏洞-回页首"><a href="#0x0-MobiCore驱动的提权漏洞-回页首" class="headerlink" title="0x0 MobiCore驱动的提权漏洞 回页首"></a>0x0 MobiCore驱动的提权漏洞 <a href="#top">回页首</a></h2><p><span id="overview"></span></p>
+<p>&emsp;  在MobiCore驱动中，ioct的MC_IO_GP_REGISTER_SHARED_MEM接口会从slab中分配一块cwsm buffer，MC_IO_GP_RELEASE_SHARED_MEM接口用来释放cwsm buffer和相关资源。但是在释放过程中，由于没有加锁，存在race condition进而导致double free的可能：</p>
+<p><img src="/2018/04/20/samsung-root/0.png" alt>   </p>
+<p>&emsp;  看此函数的实现，首先从链表中查找获取该内存块，并将引用计数加1以持有该cwsm buffer。然后通过连续两个cwsm_put函数减去引用计数并释放cwsm  buffer。cwsm_put的实现是引用计数减1，然后检查引用计数是否为0，如果为0，则执行cwsm_release函数释放cwsm，如下所示：<br><img src="/2018/04/20/samsung-root/1.png" alt><br>&emsp;  正常情况下，创建该buffer时引用计数被设为1，cwsm_find查找该buffer时引用计数加1，第一个cwsm_put调用减去cwsm_find持有的引用计数，然后第二个cwsm_put将引用计数减为0，并调用cwsm_release释放资源。<br>但在client_gp_release_shared_mem函数中，由于cwsm_find和两个cwsm_put之间并未加锁保护，使获取cwsm和释放cwsm不是原子操作，当race condition发生时，多个线程在cwsm被释放前调用cwsm_find获取该buffer后，接下来的多次cwsm_put调用则可以触发对cwsm的double free。</p>
+<p>&emsp;  我们再看cwsm_release这个函数，还是比较复杂的：<br><img src="/2018/04/20/samsung-root/2.png" alt><br>其中，cwsm的结构为：<br><img src="/2018/04/20/samsung-root/3.png" alt>   </p>
+<p>&emsp;  仔细分析cwsm_release函数，我们会发现，这个函数中当race condition发生时， tee_mmu_delete(cwsm-&gt;mmu) 会造成cwsm-&gt;mmu 的double free， client_put(client) 会造成cwsm-&gt;client的double free，最后kfree(cwsm) 也会造成cwsm的double free。三个大小不一的slab内存块同时double free，极易引起内核崩溃，除非我们在cwsm第一次被释放后占住该内存，从而控制内存中内容，改变第二次执行此函数中的流程。而list_del_init(&amp;cwsm-&gt;list)这一句：<br><img src="/2018/04/20/samsung-root/4.png" alt><br><img src="/2018/04/20/samsung-root/5.png" alt><br>如果我们可以控制cwsm的内容，也就是list-&gt;next 和list-&gt;prev指针的值，则可以做成一个任意地址写。</p>
+<h2 id="0x1-利用方案-回页首"><a href="#0x1-利用方案-回页首" class="headerlink" title="0x1 利用方案 回页首"></a>0x1 利用方案 <a href="#top">回页首</a></h2><p>&emsp;  从client_gp_release_shared_mem函数中可以看到，调用cwsm_find获得buffer和调用cwsm_put释放buffer时间间隙极小，如何能提高race condition的成功率，有效控制指针，并能尽可能的降低崩溃率呢？通过对slab中内存分配释放机制的分析，主要采用了几下几个方法:</p>
+<ol>
+<li>如何增加race condition成功率呢？kmalloc在slab中分配内存块会记录下本线程所在核，kfree释放内存时，如果判断当前线程所在核与分配内存时的所在核一致，则将内存释放到快速缓存链表freelist中，这样当其他线程分配相同大小的内存块时能快速取到，这样可以增加释放后马上占位的成功率；如果释放时判断当前线程所在核与分配内存时的所在核不一致，则将内存释放到page-&gt;freelist中，当其他线程分配内存时，缓存链表中内存耗尽后，才会从此链表中取用，因为时间间隙很小，这会降低占位成功率。所以分配slab内存，释放内存，占位内存的线程最好在同一个核上。假设有0，1，2三个核，线程A在0核上分配了buffer，线程B在0核上释放buffer，同时为了制造race condition需要线程C在1核上释放buffer，同时线程D在0核上，可以调用add_key系统调用来占用线程B释放掉的内存块，并填上我们需要的内容。当然这实际调试中，因为race condition间隙很小，可能需要几个甚至几十几百个线程同时操作来增加成功率。同时，因为race condition间隙很小，可以在0核上增加大量打酱油线程，使其在race condition间隙中获得调用机会，以增大时间间隙，提高占位的成功率；</li>
+<li>我们在cwsm double free的第一次释放后将其占住，那么就可以控制其中的内容，填上我们需要的值，因此我们可以将cwsm-&gt;list.next设为一个内核地址，利用list_del_init(&amp;cwsm-&gt;list)再调用__list_del，可以实现内核地址写，比如将ptmx-&gt;check_flags 设置为我们需要的函数指针；</li>
+<li>当race condition发生时，多个线程调用cwsm_release时，大小不同的slab块cwsm-&gt;mmu，cwsm-&gt;client和cwsm都会被重复释放，在此情况下，内核大概率会崩。因此，当cwsm第一次释放，我们占住后，需要将cwsm-&gt;client和cwsm-&gt;mmu填上合适的值，防止内核崩溃。我们先看client_put(client) 函数：<br><img src="/2018/04/20/samsung-root/6.png" alt>   </li>
+</ol>
+<p>&emsp;  这个函数首先引用计数client-&gt;kref减1，如果为0，则调用client_release释放资源。因此我们可以将client-&gt;kref设为大于1的值，防止cwsm-&gt;client被二次释放。<br>再看tee_mmu_delete(cwsm-&gt;mmu)，这一句比较麻烦，它将调用mmu_release函数，看内部实现（片段）：<br><img src="/2018/04/20/samsung-root/7.png" alt><br><img src="/2018/04/20/samsung-root/8.png" alt>   </p>
+<p>可以看到，mmu_release 不仅要释放mmu，并且要引用mmu中指针。如果我们能控制cwsm-&gt;mmu，那么我们必须将cwsm-&gt;mmu设为一个合法的slab地址，并且能够控制这个slab中的内容，否则系统将崩溃。幸运的是，我们找到了一个信息泄露漏洞：<br><img src="/2018/04/20/samsung-root/9.png" alt><br>/sys/kernel/debug/ion/event文件将泄露ion中分配的ion_buffer的地址。我们可以利用ion接口分配大量ion_buffer，然后在泄露的地址中查找到连续8k大小（cwsm-&gt;mmu的大小）的ion_buffer内存。然后在ion中占住这一块内存不释放，将其地址填到cwsm-&gt;mmu中，使mmu_release释放此内存块，但因为我们在ion中此内存占住不释放不使用，所以即使被别人重新获得，也可避免内核崩溃。</p>
+<h2 id="0x2-Bypass-KALSR-回页首"><a href="#0x2-Bypass-KALSR-回页首" class="headerlink" title="0x2 Bypass KALSR 回页首"></a>0x2 Bypass KALSR <a href="#top">回页首</a></h2><p>Android 8.0之后安卓手机普遍启用了内核地址随机化，而三星手机启用的要更早一些。此漏洞本身泄露内核地址比较困难，所以还需要一个信息泄露漏洞。debugfs 文件系统一直是比较容易出问题的，我们尝试着用简单指令测试了一下：find /sys/kernel/debug | xargs cat，片刻之后，屏幕上打印出了如下信息：<br><img src="/2018/04/20/samsung-root/10.png" alt><br>经过分析，这是/sys/kernel/debug/tracing/printk_formats文件所泄露出来的地址，有些函数地址，比如dpm_suspend，此地址加上一个固定的偏移量即可得到内核启动后的真实函数地址。经过fuzz发现，类似的信息泄露不止一处。</p>
+<h2 id="0x3-Bypass-PXN-amp-amp-CFI-回页首"><a href="#0x3-Bypass-PXN-amp-amp-CFI-回页首" class="headerlink" title="0x3 Bypass PXN &amp;&amp; CFI 回页首"></a>0x3 Bypass PXN &amp;&amp; CFI <a href="#top">回页首</a></h2><p>我们曾在16年mosec会议上介绍过几种过PXN方法。其中一个方法是，将函数指针kernel_setsockopt覆盖到ptmx_fops-&gt;check_flags，然后通过控制第一个参数跳转，绕过set_fs(oldfs)语句，当函数执行完，本进程addr_limit被设为0xffffffffffffffff，此时我们可以在用户态通过一些系统调用直接读写内核数据。<br><img src="/2018/04/20/samsung-root/11.png" alt><br>然而在s8上使用此方法时确出现了系统崩溃，仔细检查s8的kernel_sock_ioctl汇编代码时，发现跳转指令改变了，跳转到寄存器的指令改成的直接跳转到固定地址0xffffffc000c56f6c的指令：<br><img src="/2018/04/20/samsung-root/12.png" alt><br>下面看看跳转到0xffffffc000c56f6c这个地址干了些什么：<br><img src="/2018/04/20/samsung-root/13.png" alt><br>如上代码，实际上是对跳转地址做了检查，如果跳转到的地址的上一条语句是0x00be7bad，则认为是合法地址，执行跳转，如果不是则认为是非法地址，执行一条非法语句导致内核崩溃。为什么必须要上一条语句是0x00be7bad呢？原来s8在编译时每一个函数结尾都加上了一句0x00be7bad作为标记，如果上一条语句是0x00be7bad，则表明这个地址是函数的起始地址，否则不是。也就是说，在每一个跳转到寄存器地址之前都要检查地址是否为函数的起始地址，否则非法。<br>虽然此路不通，但是另外一个办法还是可以的。我们找到了一个比较好用的bug，在s2mm005_flash函数中有一个代码片段：<br><img src="/2018/04/20/samsung-root/14.png" alt><br>文件CCIC_DEFAULT_UMS_FW定义为：”/sdcard/Firmware/usbpd/s2mm005.bin”，由于此文件并不存在，当调用到此代码时，filp_open将返回错误，跳到done返回。可以看到错误处理中并没有恢复addr_limit。也就是当调用此函数失败时，本进程将得到读写内核的权限。<br>当然上面这个办法有赖于这个简单的bug，在错误处理中漏掉了set_fs(old_fs)的操作。如果没有这种bug怎么办呢？还是有办法的，我们在内核中找到了这样的函数：<br><img src="/2018/04/20/samsung-root/15.png" alt><br>将此函数地址，利用漏洞覆盖掉ptms_fops-&gt; check_flags指针，当我们调用check_flags时，可以控制第一个入参，那么合理设置参数内容，可以达到读写内核的目的。</p>
+<h2 id="0x4-KNOX2-8-amp-amp-SELinux-回页首"><a href="#0x4-KNOX2-8-amp-amp-SELinux-回页首" class="headerlink" title="0x4 KNOX2.8 &amp;&amp; SELinux 回页首"></a>0x4 KNOX2.8 &amp;&amp; SELinux <a href="#top">回页首</a></h2><p>三星手机为了提高手机安全性，加入了KNOX，使内核利用难度大大加强。这里简单介绍一下KNOX2.8在内核中主要实现的特性：</p>
+<ol>
+<li><p>与root相关的关键数据，比如cred，页表项等需要在特定内存中分配，此内存中通用cpu端被设为只读，当需要修改时，则发送指令通过TrustZone进行修改；</p>
+</li>
+<li><p>在调用rkp_call让TrustZone执行命令时，TrustZone同样将对数据完整性进行校验，比如commit_creds函数在创建cred后，调用rkp_call时，TrustZone会检查本进程credential是否在只读内存区，检查本进程id是否大于1000，如果大于1000则不能将新创建的credential修改为小于1000的值，这也使得通过调用rkp_override_creds来修改credential用户id的办法不再有效；</p>
+</li>
+<li><p>在SELinux原有权限管理基础上，增加了额外的完整性校验，这几乎影响所有系统调用接口。以open系统调用为例，当打开CONFIG_RKP_KDP配置项时，增加了security_integrity_current的校验：<br><img src="/2018/04/20/samsung-root/16.png" alt><br><img src="/2018/04/20/samsung-root/17.png" alt><br>可以看到，在security_integrity_current这个函数里，将校验：进程描述符中cred和security是否在只读内存区分配，bp_cred与cred是否一致（防止被修改），bp_task是否就是本进程，mm-&gt;pgd和cred-&gt;bp_pgd是否一致，current-&gt;nsproxy-&gt;mnt_ns-&gt;root和current-&gt;nsproxy-&gt;mnt_ns-&gt;root-&gt;mnt-&gt;bp_mount是否一致。如果其中某一项关键数据被修改而导致检验不通过，则导致系统产生panic，并打印出错误信息；</p>
+</li>
+<li><p>在load_elf_binary -&gt; flush_old_exec函数中增加校验，如果进程为id小于1000，为内核进程，并且load的二进制文件及不再”/”目录又不在”/system”目录下则内核panic。<br><img src="/2018/04/20/samsung-root/18.png" alt><br>这使得利用用户态调用__orderly_poweroff函数在内核中创建内核线程的方法将被阻止；KNOX还在内核其他地方加入了大量的检验。</p>
+</li>
+</ol>
+<p>KNOX的加入，使得以前常用的一些修改credential 用户id去root办法都比较难办了。随着KNOX版本的迭代，势必会对内核的保护越来越强化。但是就笔者当时研究的KNOX2.8而言，依然还有一些弱点可供利用，进而拿到root权限，读写高权限文件，起内核shell等。</p>
+<p>前面提到，KNOX限制root的一个措施就是在大部分系统调用中，都会进行数据完整性校验，如果我们将进程credential修改非只读区，则会校验失败。这些校验函数都是挂接在全局变量security_hook_heads下面，比如open系统调用会调用security_hook_heads下挂的file_open钩子函数，最后调用到selinux_file_open进行权限和数据完整性校验。但是security_hook_heads这个全局变量却是可读写的，我们可以利用漏洞读写内核，将此变量下面挂的钩子函数有选择的设置为NULL，不仅可以绕过该校验，还可以绕过SELinux的检查。比如，我们可以把本进程credential设置为替换为一块可读写内存，将id修改为root用户，同时将和读写相关的校验函数设为NULL。这样可以用root用户稳定的读写系统中高权限文件。进行其他操作时，也可以通过禁用相关校验函数绕过校验，当然这种方法有些简单粗暴，需要小心使用，因为这些校验函数有些和系统耦合紧密，如果不小心很容易引起系统crash，操作完成后应该尽快恢复。在KNOX之前版本中，有研究员曾经通过调用__orderly_poweroff函数，可以利用内核起一个root进程，绕过了commit_creds中的校验，但是KNOX2.8中在load_elf_binary中增加了对用户id和binary路径的校验。然而我们发现，虽然load_elf_binary增加了此校验，但是load_script中却没有加上这个校验，这就意味着，虽然我们不能在内核中加载自己的binary，但是可以起一个root脚本进程，在脚本中进行我们需要的操作。</p>
+<h2 id="总结：-回页首"><a href="#总结：-回页首" class="headerlink" title="总结： 回页首"></a>总结： <a href="#top">回页首</a></h2><p>本文介绍了如何利用一个s8中race condition驱动漏洞，一步步绕过KALSR，PXN，CFI，KNOX2.8等mitigation机制，拿到root权限，读写高权限文件，并在内核中起一个shell进程。三星在内核加固方面下了很大功夫，KNOX的引入显著提高了root的难度，随着后面版本的不断迭代，对内核的加固会越来越强，值得持续的跟踪研究。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/20/samsung-root/" data-id="cmd5slr28000c0lo1bbq57yj3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../07/25/kdhack/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          开启Win10RS4ARM64远程内核调试之旅
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../09/A-Kernel-Vulnerability-Detection-Framework-based-on-Hardware/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">A Kernel Vulnerability Detection Framework based on Hardware</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/03/">三月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2023/03/10/race_windown/">Linux 内核利用技巧 Racing against the clock</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/06/cve-2022-1015/">CVE-2022-1015 nf_tables 提权漏洞分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/01/slabUaf-to-pageUaf/">Linux 内核利用技巧 Slab UAF to Page UAF</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/07/04/CVE-2022-23222/">CVE-2022-23222  eBPF verifier 提权漏洞利用分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/02/10/CVE-2021-4034/">CVE-2021-4034 pkexec 本地提权漏洞利用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 IceSword Lab<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../research" class="mobile-nav-link">Research</a>
+  
+    <a href="../../../../vulnerabilities" class="mobile-nav-link">Vulnerabilities</a>
+  
+    <a href="../../../../recruitment" class="mobile-nav-link">Recruitment</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

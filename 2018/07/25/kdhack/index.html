@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-114832940-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>开启Win10RS4ARM64远程内核调试之旅 | IceSword Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="author : wup and suezi of IceSword Lab , Qihoo 360  &amp;emsp;&amp;emsp;今年6月，微软联合一线笔记本厂商正式发布了搭载高通骁龙处理器的Windows 10笔记本产品。作为主角的Win10 ARM64，自然亮点无数，对PC设备厂商也是各种利好。实际上，为了与厂商同步发布安全防护产品，IceswordLab的小伙伴早已将底层驱动程序集移植到了Wi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开启Win10RS4ARM64远程内核调试之旅">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/kdhack/index.html">
+<meta property="og:site_name" content="IceSword Lab">
+<meta property="og:description" content="author : wup and suezi of IceSword Lab , Qihoo 360  &amp;emsp;&amp;emsp;今年6月，微软联合一线笔记本厂商正式发布了搭载高通骁龙处理器的Windows 10笔记本产品。作为主角的Win10 ARM64，自然亮点无数，对PC设备厂商也是各种利好。实际上，为了与厂商同步发布安全防护产品，IceswordLab的小伙伴早已将底层驱动程序集移植到了Wi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2018/07/25/kdhack/00.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/25/kdhack/01.png">
+<meta property="article:published_time" content="2018-07-25T10:06:40.000Z">
+<meta property="article:modified_time" content="2025-07-16T10:02:19.301Z">
+<meta property="article:author" content="IceSword Lab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/25/kdhack/00.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="IceSword Lab" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">IceSword Lab</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">Work hard in silence , let success make the noise.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../../../research">Research</a>
+        
+          <a class="main-nav-link" href="../../../../vulnerabilities">Vulnerabilities</a>
+        
+          <a class="main-nav-link" href="../../../../recruitment">Recruitment</a>
+        
+          <a class="main-nav-link" href="../../../../about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018/07/25/kdhack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2018-07-25T10:06:40.000Z" itemprop="datePublished">2018-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      开启Win10RS4ARM64远程内核调试之旅
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="author-wup-and-suezi-of-IceSword-Lab-Qihoo-360"><a href="#author-wup-and-suezi-of-IceSword-Lab-Qihoo-360" class="headerlink" title="author : wup and suezi of IceSword Lab , Qihoo 360  "></a>author : wup and suezi of IceSword Lab , Qihoo 360  </h2><p><span id="top"></span><br>&emsp;&emsp;今年6月，微软联合一线笔记本厂商正式发布了搭载高通骁龙处理器的Windows 10笔记本产品。作为主角的Win10 ARM64，自然亮点无数，对PC设备厂商也是各种利好。实际上，为了与厂商同步发布安全防护产品，IceswordLab的小伙伴早已将底层驱动程序集移植到了Win10 ARM64平台上，笔者也因此积累了一些有趣的内核调试方法。在x86平台使用vmware等虚拟机软件搭建远程内核调试环境是非常方便有效的办法，但目前Win10 ARM64平台没有这样的虚拟机软件，于是笔者利用qemu模拟器DIY一个。</p>
+<h2 id="0x0-准备试验环境"><a href="#0x0-准备试验环境" class="headerlink" title="0x0 准备试验环境"></a>0x0 准备试验环境</h2><p>物理机系统环境 ：Windows10 RS4 x64<br>虚拟化软件qemu ： qemu-w64-setup-20180519.exe<br>虚拟机系统环境 ：Windows10 RS4 ARM64<br>UEFI 模块 ： Linaro 17.08 QEMU_EFI.fd<br>WINDBG ：WDK10 (amd64fre-rs3-16299)附带的WinDBG  </p>
+<h2 id="0x1-qemu远程内核调试开启失败"><a href="#0x1-qemu远程内核调试开启失败" class="headerlink" title="0x1 qemu远程内核调试开启失败"></a>0x1 qemu远程内核调试开启失败</h2><p>&emsp;&emsp;在qemu环境下，我们使用Linaro.org网站提供的针对QEMU(AARCH64)的1708版的UEFI文件QEMU_EFI.fd启动Win10ARM64的系统，并使用bcdedit修改qemu模拟器里的Win10ARM64的启动配置以实现远程内核调试。配置如下图，<br><img src="/2018/07/25/kdhack/00.png" alt title="qemu+aarch64+debug"></p>
+<p>我们遇到了两个问题：<br>（1） 以“-serial pipe:com_1”参数启动qemu模拟器，qemu会被卡住，导致虚拟机系统无法启动；<br>（2）无论是否开启了基于串口的远程内核调试，系统内核加载的都是kd.dll而非预期的kdcom.dll;  </p>
+<p>对于问题（1），我们利用qemu串口转发功能，开发一个代理程序：建立一个namedpipe等待windbg的连接，并建立与qemu串口socket服务器的连接，从而实现将pipe上读取(ReadFile)的数据写入(send)到socket、将socket上读取(recv)的数据写入(WriteFile)到pipe。如此我们解决了问题（1）。<br>至于问题（2），对比VMWare里用UEFI方式部署的Win10RS4x64，不开启内核调试时系统加载的是kd.dll，开启内核调试时系统加载的是kdcom.dll，下面对其进一步分析。 </p>
+<h2 id="0x2-系统提供的kdcom-dll存在问题"><a href="#0x2-系统提供的kdcom-dll存在问题" class="headerlink" title="0x2 系统提供的kdcom.dll存在问题"></a>0x2 系统提供的kdcom.dll存在问题</h2><p>&emsp;&emsp;在Win10RS4ARM64安装镜像的预置驱动里，无法找到serial.sys这个经典的串口驱动；而Win10ARM64笔记本的串口设备是存在的，且串口驱动是高通官方提供的。实际上通过串口远程调试windows，系统正常的启动过程中，调试子系统的初始化是早先于串口驱动程序，调试子系统调用kdcom.dll提供的功能，并不需要串口驱动程序的支持。因此微软没有为Win10RS4ARM64提供串口驱动serial.sys，对我们最终的目标没有影响。  </p>
+<p>那么问题究竟出在哪里呢？是因为Loader所使用的Qemu中的UEFI有问题吗？  </p>
+<p>对照qemu的源码可知，qemu为aarch64模拟器环境提供了串口设备PL011。我们研究了Linaro UEFI的源码EDK2并编译了对应的UEFI文件，确保使用的UEFI文件确实提供了串口功能。再用与Win10ARM64模拟器同样的配置安装了Ubuntu for ARM，在这个模拟器里PL011串口通信正常，串口采用MMIO，其映射的基址为0x09000000。但安装Win10后问题依旧：以基于串口的远程内核调试的启动配置来启动Win10RS4ARM64，系统加载的是kd.dll而非期望的kdcom.dll，故而推测是winload 没有识别PL011串口设备、没能去加载kdcom.dll。由此，我们决定直接将kdcom.dll替换kd.dll来使用。不过使用kdcom.dll替换kd.dll后出现了新的问题——系统引导异常，下面进一步分析其原因。  </p>
+<p>kdcom!KdCompInitialize是串口初始化的关键函数，分析它是如何初始化并使用串口设备的。系统第一次调用kdcom!KdInitialize初始化串口时，传递给KdCompInitialize的第二个参数LoaderBlock是nt!KeLoaderBlock,非NULL，此时kdcom!KdCompInitialize里的关键流程如下：<br>(1)    HalPrivateDispatchTable-&gt;KdEnumerateDebuggingDevices已被赋值为hal!HalpKdEnumerateDebuggingDevices，调用返回0xC0000001;<br>(2)    串口处理器UartHardwareDriver为NULL，没有被赋值；<br>(3)    HalPrivateDispatchTable-&gt;KdGetAcpiTablePhase0已被赋值为hal!HalAcpiGetTable，<br>调用HalAcpiGetTable(loaderBlock, ‘2GBD’)返回NULL,<br>调用HalAcpiGetTable(loaderBlock, ‘PGBD’)返回NULL,<br>因此gDebugPortTable为NULL;<br>(4)    参数LoaderBlocker非NULL且gDebugPortTable为NULL，调用GetDebugAddressFromComPort来配置串口地址；<br>GetDebugAddressFromComPort调用nt!KeFindConfigurationEntry失败，按照既定策略，基于DebugPortId的值指派串口地址（DebugPort.Address）为0x3F8/0x2F8/0x3E8/0x2E8/0x00五者之一;<br>(5)    由于gDebugPortTable为NULL,串口处理器UartHardwareDriver赋值为Uart16550HardwareDriver；<br>由于串口地址（DebugPort.Address）非NULL，调用串口初始化函数UartHardwareDriver-&gt;InitializePort初始化串口;<br>模拟器提供的串口设备为PL011, 串口处理器应被赋值为是PL011HardwareDriver 而非Uart16550HardwareDriver;  </p>
+<p>至此，我们发现导致异常的原因： 模拟器提供的是PL011串口设备,  kdcom.dll虽提供了支持PL011的代码，但未能正确识别适配，依然把它当成了PC的isa-serial串口设备。这应属于kdcom.dll的bug。  </p>
+<h2 id="0x3-开启qemu远程内核调试"><a href="#0x3-开启qemu远程内核调试" class="headerlink" title="0x3 开启qemu远程内核调试"></a>0x3 开启qemu远程内核调试</h2><p>&emsp;&emsp;现在看来，我们需要解决的问题有两个：系统Loader仅加载不支持远程内核调试的kd.dll，系统模块kdcom.dll没能完全支持PL011串口设备。  </p>
+<p>对于第一个问题，我们简单采取文件替换的办法绕过它。<br>对于第二个问题，预期可以使用这样的办法解决：开发一个boot类型的驱动，让它能够加载kdcom.dll并主动修正kdcom.dll中所有相关数据，对内核映像Ntoskrnl.exe执行IATHook——把导入地址表中的kd.dll函数地址全部替换成kdcom.dll对应函数地址，最后执行nt!KdInitSystem来初始化调试子系统。这种方案篡改内核数据后，会很快触发PatchGuard蓝屏，因此我们需要设计出一个更可用的方案。  </p>
+<p>我们可以开发一个能够实现远程内核调试所需的串口通信功能的dll（即没有BUG的kdcom.dll）来替换系统目录下kd.dll，在“禁用驱动程序强制签名”的场景下实现对操作系统初始化流程的劫持。  </p>
+<p>微软给WINDBG的安装包捆入了一个名为KdSerial的示例项目。这个项目缺少了一些代码，但是关键的部分都在。通过笔者的改造，成功编译得到一个kdserial.dll，它拥有远程内核调试所需的串口通信功能和正确的PL011串口配置，能够替代Win10ARM64RS4系统里的kdcom.dll。将这个kdserial.dll替换系统里的kd.dll，开机时选择“启动设置”菜单里的“禁止驱动程序强制签名”，达成远程内核调试Win10RS4ARM64的目标。  </p>
+<p><img src="/2018/07/25/kdhack/01.png" alt title="qemu+aarch64+win10rs4+windbg"></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] Windows Internals 6th<br>[2] https://docs.microsoft.com/en-us/windows-hardware/drivers/devtest/bcdedit--dbgsettings<br>[3] https://docs.microsoft.com/en-us/windows-hardware/drivers/devtest/bcd-boot-options-reference<br>[4] https://wiki.linaro.org/LEG/UEFIforQEMU<br>[5] https://blog.csdn.net/iiprogram/article/details/2298550  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/25/kdhack/" data-id="cmd5slr2a000d0lo1guipdcaa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../../2019/03/08/cve-2018-18281/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          TLB 缓存延迟刷新漏洞 CVE-2018-18281 解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../04/20/samsung-root/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">利用一个竞态漏洞root三星s8的方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/03/">三月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2023/03/10/race_windown/">Linux 内核利用技巧 Racing against the clock</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/06/cve-2022-1015/">CVE-2022-1015 nf_tables 提权漏洞分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/01/slabUaf-to-pageUaf/">Linux 内核利用技巧 Slab UAF to Page UAF</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/07/04/CVE-2022-23222/">CVE-2022-23222  eBPF verifier 提权漏洞利用分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/02/10/CVE-2021-4034/">CVE-2021-4034 pkexec 本地提权漏洞利用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 IceSword Lab<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../research" class="mobile-nav-link">Research</a>
+  
+    <a href="../../../../vulnerabilities" class="mobile-nav-link">Vulnerabilities</a>
+  
+    <a href="../../../../recruitment" class="mobile-nav-link">Recruitment</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

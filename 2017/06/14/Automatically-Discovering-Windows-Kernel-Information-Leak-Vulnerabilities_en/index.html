@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-114832940-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>Automatically Discovering Windows Kernel Information Leak Vulnerabilities | IceSword Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="author : fanxiaocao(@TinySecEx)  and @pjf_ of IceSword Lab , Qihoo 360  TL;DRThis Patch-Tuesday MS fixed 6 kernel information leak vulnerabilities reported by us, the details are at the end of this ar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Automatically Discovering Windows Kernel Information Leak Vulnerabilities">
+<meta property="og:url" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/index.html">
+<meta property="og:site_name" content="IceSword Lab">
+<meta property="og:description" content="author : fanxiaocao(@TinySecEx)  and @pjf_ of IceSword Lab , Qihoo 360  TL;DRThis Patch-Tuesday MS fixed 6 kernel information leak vulnerabilities reported by us, the details are at the end of this ar">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/DigTool.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/loader.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/analyze.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/log.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/KiFastCallEntryHook.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/magic.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/diff.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/vul1_detail.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/object.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/game.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8470.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8474.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8476.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8482.png">
+<meta property="og:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8485.png">
+<meta property="article:published_time" content="2017-06-14T07:53:40.000Z">
+<meta property="article:modified_time" content="2025-07-16T10:02:19.244Z">
+<meta property="article:author" content="IceSword Lab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/DigTool.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="IceSword Lab" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">IceSword Lab</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">Work hard in silence , let success make the noise.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../../../research">Research</a>
+        
+          <a class="main-nav-link" href="../../../../vulnerabilities">Vulnerabilities</a>
+        
+          <a class="main-nav-link" href="../../../../recruitment">Recruitment</a>
+        
+          <a class="main-nav-link" href="../../../../about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2017-06-14T07:53:40.000Z" itemprop="datePublished">2017-06-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Automatically Discovering Windows Kernel Information Leak Vulnerabilities
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>author : <a href="https://twitter.com/TinySecEx" target="_blank">fanxiaocao(@TinySecEx)</a>  and <a href="http://weibo.com/jfpan" target="_blank">@pjf_</a> of IceSword Lab , Qihoo 360</p>
+<hr>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>This Patch-Tuesday MS fixed 6 kernel information leak vulnerabilities reported by us, the details are at the end of this article.<br>I had already show how to fuzz the windows kernel via JS , today we will introduce a new method to discover windows kernel vulnerabilities automatically without fuzzing.<br>I selected a small part from the work in the past few months to spread out this topic.</p>
+<h2 id="KASLR"><a href="#KASLR" class="headerlink" title="KASLR"></a>KASLR</h2><p>In Windows Vista and above, Microsoft enable Kernel Address Space Layout Randomization (KASLR) by default to prevent exploitation by placing various objects at random addresses, rather than fixed ones. It is an effective method against exploitation using Return-oriented Programming (ROP) attack.     </p>
+<p>Beginning with Windows 8, KASLR is enhanced with a newly introduced function ExIsRestrictedCaller.<br> Programs under medium integrity are not able to invoke functions such as NtQuerySystemInformation to obtain addresses of kernel modules, kernel objects or pools.      </p>
+<p>The functions include but not limited to:</p>
+<h3 id="NtQuerySystemInformation"><a href="#NtQuerySystemInformation" class="headerlink" title="NtQuerySystemInformation"></a>NtQuerySystemInformation</h3><pre><code>* SystemModuleInformation 
+* SystemModuleInformationEx 
+* SystemLocksInformation 
+* SystemStackTraceInformation 
+* SystemHandleInformation 
+* SystemExtendedHandleInformation 
+* SystemObjectInformation 
+* SystemBigPoolInformation 
+* SystemSessionBigPoolInformation 
+* SystemProcessInformation
+* SystemFullProcessInformation</code></pre><h3 id="NtQueryInfomationThread"><a href="#NtQueryInfomationThread" class="headerlink" title="NtQueryInfomationThread"></a>NtQueryInfomationThread</h3><h3 id="NtQueryInfomationProcess"><a href="#NtQueryInfomationProcess" class="headerlink" title="NtQueryInfomationProcess"></a>NtQueryInfomationProcess</h3><p>The above is the traditional way to get the kernel module address and kernel object address, as the kernel normal feature.<br>But after win8, low integrity application will fail in calling these functions.     </p>
+<p>In order to bypass KASLR, a direct countermeasure is to discover vulnerabilities that leak valuable information from the kernel mode to calculate the address of kernel module or kernel object.     </p>
+<h2 id="Kernel-Information-Leak"><a href="#Kernel-Information-Leak" class="headerlink" title="Kernel Information Leak"></a>Kernel Information Leak</h2><p>As a kind of kernel vulnerability, it has its own uniqueness. For example, for the traditional memory damage vulnerabilities, the vulnerability itself will affect the running of the kernel. With the help of verifier and other tools, you can easily capture this exception among the normal traffic.<br>But the kernel information leak vulnerability does not trigger any exception, nor does it affect the running of the kernel, which makes it more difficult to be discovered.<br>Vulnerabilities objectively exist, what we need to do is to find them at lowest cost.      </p>
+<h2 id="Discover-ideas"><a href="#Discover-ideas" class="headerlink" title="Discover ideas"></a>Discover ideas</h2><p>When kernel information leak vulnerability occurs, the kernel will certainly write some valuable data to the user buffer.<br>So if we monitor all the writing behaviors to user buffer in the kernel, we will be able to find them.      </p>
+<p>Of course, the system does not provide this feature.<br>I capture the process with the help of a hardware virtualization based framework of pjf,<br>who is the author of the famous windows kernel anti-rootkit tool named iceSword. </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/DigTool.png" alt>            </p>
+<p>In order not to affect the dest system itself, I monitored in the VMWARE guest and write some log files, and then further analyze them in the host system.  </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/loader.png" alt>     </p>
+<p>In the host machine, after decoding and analyzing the logs:  </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/analyze.png" alt>    </p>
+<p>Then we have the human-readable logs: </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/log.png" alt>       </p>
+<h2 id="Further-Analysis"><a href="#Further-Analysis" class="headerlink" title="Further Analysis"></a>Further Analysis</h2><p>Now we have operation records in user memory buffer written by kernel.<br>Most of them are just normal functions.     </p>
+<p>We need remove nosiy data to find out the key information.<br>Two skills are needed.     </p>
+<h3 id="Poison-the-kernel-stack"><a href="#Poison-the-kernel-stack" class="headerlink" title="Poison the kernel stack"></a>Poison the kernel stack</h3><p>Poisoning or polluting the target is a common idea.<br>At network penetration testing, there are also ARP and DNS cache poisoning.       </p>
+<p>Here is the kernel stack poisoning, refers to the pollution to the entire unused kernel stack space.     </p>
+<p>If a variable on a kernel stack is not initialized, then when this variable is written to the user buffer, there will be a magic value in the record written by me. Wherever these is a magic value, there is a leak.        </p>
+<p>I noticed that j00ru also used similar techniques in his BochsPwn project.        </p>
+<h4 id="KiFastCallEntry-Hook"><a href="#KiFastCallEntry-Hook" class="headerlink" title="KiFastCallEntry Hook"></a>KiFastCallEntry Hook</h4><p>In order to poison the kernel stack, I hooked nt!KiFastCallEntry.<br>So that when a syscall invoked, I can poisoning the entire unused kernel stack space.  </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/KiFastCallEntryHook.png" alt>      </p>
+<p>Firstly, I used ** IoGetStackLimits ** to get the current thread stack range, and then from the bottom of the stack to the current stack location of the entire space are filled with 0xAA.     </p>
+<p>So when I entered the syscall, all the contents of the local variables on the kernel stack will be filled into 0xAA.       </p>
+<h3 id="Poison-the-kernel-pool"><a href="#Poison-the-kernel-pool" class="headerlink" title="Poison the kernel pool"></a>Poison the kernel pool</h3><p>Similarly, for dynamically allocated memory, I used hook <strong>nt!ExAllocatePoolWithTag</strong> and so on, and polluted its POOL content.</p>
+<p>If the kernel stack/heap variable is not properly initialized, it is possible to write this magic value to the user buffer.   </p>
+<p>With the help of the logs we captured, we can immediately find this vulnerability.<br>In order to remove the coincidence, I also used a number of magic value such as <strong>0xAAAAAAAA</strong> , <strong>0xBBBBBBB</strong> to exclude false positives.       </p>
+<p>A typical result after excluding the interference is as follows.    </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/magic.png" alt>      </p>
+<p>You can see that in a short monitoring process, it caught the ** 161 ** leaks in the system!<br>Of course, this is not exhaustive. There are not so many independent vulnerabilities, but some vulnerabilities made repeated leaks.       </p>
+<p>At this point we caught a real information leak vulnerability, there is stack information, supplemented by a simple manual analysis, we can got the details.<br>This is also the story behind the <strong>CVE-2017-8482</strong>.     </p>
+<h3 id="Difference-comparison"><a href="#Difference-comparison" class="headerlink" title="Difference comparison"></a>Difference comparison</h3><p>For the kernel information leak caused by the uninitialized stack, we can poison them at first and then find them.<br>But for the direct disclosure of key information, such as the module and the object address written directly, it cannot be found in this way.      </p>
+<p>In the process of the system running, the kernel itself will frequently write data to the user buffer, a lot of data is in the kernel address range, but in fact it is not a valid address, but a noise data.<br>There are many such noise data, such as strings, pixels, rect, region, etc. which are likely happen to be a kernel address. We need to rule out the noise and found a real leak.      </p>
+<p>Here we filter out some meaningful addresses, such as:     </p>
+<ol>
+<li>Module address, must be inside in the system module list     </li>
+<li>object address    </li>
+<li>POOL address   </li>
+</ol>
+<p>After the environment changes, such as restarting the system,  it must be able to leak the same type of data at the same location.     </p>
+<p>After the exclusion of the normal function of the system, such as <strong>NtQuerySystemInformation</strong> and similar functions, the left data’s credibility is very high.    </p>
+<h3 id="The-leak-of-module-address"><a href="#The-leak-of-module-address" class="headerlink" title="The leak of module address"></a>The leak of module address</h3><p>For example <strong>CVE-2017-8485</strong>   </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/diff.png" alt>    </p>
+<p>You can see that the results at this time is very obvious - the same stack, the same location, are leaked <strong>nt! ObpReferenceObjectByHandleWithTag + 0x19f</strong>    </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/vul1_detail.png" alt>    </p>
+<h3 id="The-leak-of-object-address"><a href="#The-leak-of-object-address" class="headerlink" title="The leak of object address"></a>The leak of object address</h3><p>Due to leakage of object address and POOL address not fixed by Microsoft this month, I cannot describe the details.  </p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/object.png" alt>    </p>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p>You can see that we do not need a fuzzer, only through the code coverage generated by normal running of the system itself, we found these vulnerabilities.<br>Any normal program running can improve this coverage.<br>In fact, in the actual work, I only use the game and the browser to improve coverage and got good results.<br>A game finished, ten kernel vulnerabilities on the hand.</p>
+<p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/game.jpg" alt>     </p>
+<h2 id="The-case-of-this-month"><a href="#The-case-of-this-month" class="headerlink" title="The case of this month"></a>The case of this month</h2><h3 id="CVE-2017-8470"><a href="#CVE-2017-8470" class="headerlink" title="CVE-2017-8470"></a>CVE-2017-8470</h3><p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8470.png" alt>   </p>
+<h3 id="CVE-2017-8474"><a href="#CVE-2017-8474" class="headerlink" title="CVE-2017-8474"></a>CVE-2017-8474</h3><p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8474.png" alt>   </p>
+<h3 id="CVE-2017-8476"><a href="#CVE-2017-8476" class="headerlink" title="CVE-2017-8476"></a>CVE-2017-8476</h3><p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8476.png" alt>    </p>
+<h3 id="CVE-2017-8482"><a href="#CVE-2017-8482" class="headerlink" title="CVE-2017-8482"></a>CVE-2017-8482</h3><p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8482.png" alt>    </p>
+<h3 id="CVE-2017-8485"><a href="#CVE-2017-8485" class="headerlink" title="CVE-2017-8485"></a>CVE-2017-8485</h3><p><img src="/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/CVE-2017-8485.png" alt>    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/14/Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_en/" data-id="cmd5slr2000080lo13i5r45th" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../08/07/qualcomm-crypto-engine-vulnerabilities-exploits/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          高通加解密引擎提权漏洞解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="../Automatically-Discovering-Windows-Kernel-Information-Leak-Vulnerabilities_zh/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">自动化挖掘 windows 内核信息泄漏漏洞</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/03/">三月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2023/03/10/race_windown/">Linux 内核利用技巧 Racing against the clock</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/06/cve-2022-1015/">CVE-2022-1015 nf_tables 提权漏洞分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/01/slabUaf-to-pageUaf/">Linux 内核利用技巧 Slab UAF to Page UAF</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/07/04/CVE-2022-23222/">CVE-2022-23222  eBPF verifier 提权漏洞利用分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/02/10/CVE-2021-4034/">CVE-2021-4034 pkexec 本地提权漏洞利用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 IceSword Lab<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../research" class="mobile-nav-link">Research</a>
+  
+    <a href="../../../../vulnerabilities" class="mobile-nav-link">Vulnerabilities</a>
+  
+    <a href="../../../../recruitment" class="mobile-nav-link">Recruitment</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

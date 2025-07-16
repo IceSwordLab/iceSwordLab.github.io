@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-114832940-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>随笔 | IceSword Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="author : https:&#x2F;&#x2F;weibo.com&#x2F;jfpan &amp;emsp;&amp;emsp;这是一篇随笔，Win10对虚拟化实施拦截的产品设的障碍越来越大，忍不住吐槽下。话说RS3改进PatchGuard的针对性很明显，但为什么昨天提到Dual-CR3呢？因为它虽对功能实现没什么影响，但对性能造成不小麻烦（实际上，虚拟化拦截类项目，其拦截功能本身的实现是非常简单的，而能否大规模产品化、商业化的根本核">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随笔">
+<meta property="og:url" content="http://yoursite.com/2017/12/rs4_dual_cr3/index.html">
+<meta property="og:site_name" content="IceSword Lab">
+<meta property="og:description" content="author : https:&#x2F;&#x2F;weibo.com&#x2F;jfpan &amp;emsp;&amp;emsp;这是一篇随笔，Win10对虚拟化实施拦截的产品设的障碍越来越大，忍不住吐槽下。话说RS3改进PatchGuard的针对性很明显，但为什么昨天提到Dual-CR3呢？因为它虽对功能实现没什么影响，但对性能造成不小麻烦（实际上，虚拟化拦截类项目，其拦截功能本身的实现是非常简单的，而能否大规模产品化、商业化的根本核">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2017/12/rs4_dual_cr3/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/rs4_dual_cr3/2.jpg">
+<meta property="article:published_time" content="2017-12-05T18:06:40.000Z">
+<meta property="article:modified_time" content="2025-07-16T10:02:19.275Z">
+<meta property="article:author" content="IceSword Lab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/rs4_dual_cr3/1.jpg">
+  
+    <link rel="alternate" href="../../../atom.xml" title="IceSword Lab" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../index.html" id="logo">IceSword Lab</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../index.html" id="subtitle">Work hard in silence , let success make the noise.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../../research">Research</a>
+        
+          <a class="main-nav-link" href="../../../vulnerabilities">Vulnerabilities</a>
+        
+          <a class="main-nav-link" href="../../../recruitment">Recruitment</a>
+        
+          <a class="main-nav-link" href="../../../about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2017/12/rs4_dual_cr3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2017-12-05T18:06:40.000Z" itemprop="datePublished">2017-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      随笔
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>author : https://weibo.com/jfpan</p>
+<p>&emsp;&emsp;这是一篇随笔，Win10对虚拟化实施拦截的产品设的障碍越来越大，忍不住吐槽下。话说RS3改进PatchGuard的针对性很明显，但为什么昨天提到Dual-CR3呢？因为它虽对功能实现没什么影响，但对性能造成不小麻烦（实际上，虚拟化拦截类项目，其拦截功能本身的实现是非常简单的，而能否大规模产品化、商业化的根本核心难点与重点在于完美兼容性与极高实时性能的要求：1、兼容性——除去极端软件，即“用我时就别运行其他虚拟化或硬件相关程序”的软件——必须实现对GUEST展现实际CPU全部硬件特性且GUEST确实可使用这些特性，否则在一些场景一定有兼容问题。兼容性的一些入门测试有不少，比如虚拟化功能开启时运行vmware workstation在里面各跑一个32bit Guest和64bit Guest、跑一个Bluestacks模拟器玩玩Android游戏、给Intel CPU打一个微码补丁等等；2、性能的要求是几乎不造成性能下降，而#VMEXIT的性能损耗是巨大的，因此至少需要实现未嵌套工作时在支持unrestricted guest的CPU上几乎不产生#VMEXIT。这两点可探讨的细节和实例太多，就不写了，一个小广告——可参考360HVM）。       </p>
+<p>&emsp;&emsp;那么微软为什么要在RS4引入Dual-CR3，这要从内核地址空间随机化（KASLR）说起了，Win10 KASLR随机化了模块的加载基址、内核对象地址、页表地址等，缓解了内核漏洞的利用。不过之前微软对各种基于硬件的边信道攻击（double page fault、prefetch side-channel、TSX-based side-channel等等）依然是没有防护的，这次引入Dual-CR3至少目标中包含增加该种防护。学术圈对该类攻击和防御手段研究已经多时了，今年《KASLR is Dead: Long Live KASLR》这篇论文为Linux设计实现的内核地址隔离方案KAISER号称性能损失仅有0.28%，当初看到的时候只凭感觉每次系统调用都切换CR3、把非Global的TLB项清除（何况为了实现内核地址强隔离应该是没有Global项），这性能损失怎么会这么小（论文里倒是提供了一下解释：首先Global没什么用”Surprisingly, we found the performance impact of disabling global bits to be entirely negligible”；其次现代CPU对TLB管理的优化使得频繁切CR3也没什么大损失了）。没想到没几个月微软就直接在Win10上完全照搬了这套方案（不是每个进程都切换）。这套方案原理简单可行，参见附图一（论文附图）就一目了然了。微软在进程—_KPROCESS中增加了UserDirectoryTableBase配合原有DirectoryTableBase即提供论文中描述的CR3 Pair的内容。线程运行时，_KPRCB中的KernelDirectoryTableBase、RspBaseShadow、UserRspShadow、ShadowFlags用于模式转换时的隔离切换，需要加入的代码很少，附图二是Intel CPU的系统调用入口的代码，返回时自然也有相应的处理。       </p>
+<p>&emsp;&emsp;回到一开始，微软的强隔离对虚拟化拦截项目有什么影响呢？首先对一些拦截了MOV-CR3操作的情况乐子就大了，增加大量的#VMEXIT；其次微软仅保留映射了极少的内核页面在所谓Shadow address space中，比如KiSystemCall64Shadow需要被映射，但KiSystemCall64- KiSystemServiceUser都未被映射，更别说虚拟机在GUEST中的HOOK代码了。如果强制在GUEST中映射自己的代码，这相当不优美又对强隔离有所破坏且带来风险。有事要忙随笔先写到这里。       </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>https://cmaurice.fr/pdf/essos17_gruss.pdf</p>
+<h2 id="附图1"><a href="#附图1" class="headerlink" title="附图1"></a>附图1</h2><p><img src="/2017/12/rs4_dual_cr3/1.jpg" alt>   </p>
+<h2 id="附图2"><a href="#附图2" class="headerlink" title="附图2"></a>附图2</h2><p><img src="/2017/12/rs4_dual_cr3/2.jpg" alt>   </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/rs4_dual_cr3/" data-id="cmd5slqzy00060lo12dps90ka" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../2018/02/06/meltdown/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          随笔（二）：全补丁下再次利用CPU漏洞攻破KASLR
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../10/ChromeOS-Userdata-Protection-Mechanism-Based-On-EXT4-Encryption/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Chrome OS基于EXT4 Encryption的用户数据安全保护机制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/03/">三月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../2023/03/10/race_windown/">Linux 内核利用技巧 Racing against the clock</a>
+          </li>
+        
+          <li>
+            <a href="../../../2023/02/06/cve-2022-1015/">CVE-2022-1015 nf_tables 提权漏洞分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../2023/02/01/slabUaf-to-pageUaf/">Linux 内核利用技巧 Slab UAF to Page UAF</a>
+          </li>
+        
+          <li>
+            <a href="../../../2022/07/04/CVE-2022-23222/">CVE-2022-23222  eBPF verifier 提权漏洞利用分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../2022/02/10/CVE-2021-4034/">CVE-2021-4034 pkexec 本地提权漏洞利用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 IceSword Lab<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../research" class="mobile-nav-link">Research</a>
+  
+    <a href="../../../vulnerabilities" class="mobile-nav-link">Vulnerabilities</a>
+  
+    <a href="../../../recruitment" class="mobile-nav-link">Recruitment</a>
+  
+    <a href="../../../about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

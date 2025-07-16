@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-114832940-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>随笔（二）：全补丁下再次利用CPU漏洞攻破KASLR | IceSword Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="author : https:&#x2F;&#x2F;weibo.com&#x2F;jfpan &amp;emsp;&amp;emsp;12月初微博提到微软RS4的内核修改，介绍了其KVA Shadowing方案消除了多种已知硬件边信道攻击，无意中成了当时尚未公开的meltdown CPU漏洞补丁的最早(?)粗略分析。漏洞公布后本想补充写个详细分析的blog，但忙于保障部门驱动与补丁的兼容性故而推迟。几天后发现网上已经遍布翻译的、原创的mel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随笔（二）：全补丁下再次利用CPU漏洞攻破KASLR">
+<meta property="og:url" content="http://yoursite.com/2018/02/06/meltdown/index.html">
+<meta property="og:site_name" content="IceSword Lab">
+<meta property="og:description" content="author : https:&#x2F;&#x2F;weibo.com&#x2F;jfpan &amp;emsp;&amp;emsp;12月初微博提到微软RS4的内核修改，介绍了其KVA Shadowing方案消除了多种已知硬件边信道攻击，无意中成了当时尚未公开的meltdown CPU漏洞补丁的最早(?)粗略分析。漏洞公布后本想补充写个详细分析的blog，但忙于保障部门驱动与补丁的兼容性故而推迟。几天后发现网上已经遍布翻译的、原创的mel">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/meltdown/1.png">
+<meta property="article:published_time" content="2018-02-06T19:22:40.000Z">
+<meta property="article:modified_time" content="2025-07-16T10:02:19.276Z">
+<meta property="article:author" content="IceSword Lab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/06/meltdown/1.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="IceSword Lab" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">IceSword Lab</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">Work hard in silence , let success make the noise.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+          <a class="main-nav-link" href="../../../../research">Research</a>
+        
+          <a class="main-nav-link" href="../../../../vulnerabilities">Vulnerabilities</a>
+        
+          <a class="main-nav-link" href="../../../../recruitment">Recruitment</a>
+        
+          <a class="main-nav-link" href="../../../../about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018/02/06/meltdown" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2018-02-06T19:22:40.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      随笔（二）：全补丁下再次利用CPU漏洞攻破KASLR
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>author : https://weibo.com/jfpan</p>
+<p>&emsp;&emsp;12月初微博提到微软RS4的内核修改，介绍了其KVA Shadowing方案消除了多种已知硬件边信道攻击，无意中成了当时尚未公开的meltdown CPU漏洞补丁的最早(?)粗略分析。漏洞公布后本想补充写个详细分析的blog，但忙于保障部门驱动与补丁的兼容性故而推迟。几天后发现网上已经遍布翻译的、原创的meltdown/spectre相关文章，再写重复的内容就没什么意义了。所以这篇blog主要是写一些大家没有提到的内容。</p>
+<p>&emsp;&emsp;之前短文提到了操作系统抵御meltdown的方案是用户态使用另一份不映射内核绝大多数地址空间的页表（Windows上的KVA Shadowing和Linux上的KPTI，它们源自KAISER），那么已有方案是否完美呢？答案是否定的，下面以微软补丁方案为例介绍一个导致全补丁下KASLR Bypass的简单缺陷。（注意虽说原理极为简单，但为了确认是否能公开，两周前已将缺陷报给了MSRC，刚得到微软确定答复。小小吐槽一下，微软认为其威胁不大、不归于漏洞这点在意料之中，但给的理由又是常用的一个：“This is by design”，给人的感觉就是专门留下这点设计来废掉KASLR，其实KAISER原本就是设计用于防止针对KASLR的边信道攻击，本质上还是算方案设计有遗漏）</p>
+<p>&emsp;&emsp;言归正传，这个缺陷的原理在于KVA Shadowing虽然不在用户态映射绝大多数内核地址空间，但为了保证应用层、内核层之间能正常切换，依然必须有少量的内核代码与数据映射在用户层的页表中。比如，我们可以看到在补丁生效时的syscall入口KiSystemCall64Shadow并不在.text节里，而是和KiDivideErrorFaultShadow等中断处理入口一起放入了KVASCODE节，该节内容集中放置了CPU状态转换时所需的切换页表的代码，其必须映射在用户态的Shadow address space。同理，KPCR这样的重要数据区也是被映射的。前述代码数据区域虽被映射，但地址是随机的。那么有没有既必须被映射、又能被用户层知晓位置的重要数据呢？不幸的是在目前的设计下存在这样的数据区：IDT与GDT（未使用UMIP时用户层可获取地址）。其中IDT中有各个中断处理函数在前述的KVASCODE节中，可通过meltdown的攻击方法在打完全补丁（包括meltdown/spectre补丁）下直接泄露NT内核模块地址。不过并不是指定内核地址随意使用meltdown攻击就能轻易读出内容，看起来内核地址所存储的数据需要在L1缓存中Meltdown攻击才更有可能成功，因此可以使用prefetch指令去预读，不过实验中找一些实际触碰目标内存的操作成功率会大一些，例如：读取IDT内容前故意触发一个中断，读取GDT前如下修改段寄存器内容使CPU访问GDT数据填入段寄存器的影子寄存器:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, es</span><br><span class="line">push rax</span><br><span class="line">mov ax, fs</span><br><span class="line">mov es, ax ; Let cpu touch GDT.</span><br><span class="line">pop rax</span><br><span class="line">mov es, ax</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;实验中IDT内容的读取相对不那么稳定，不过通过阈值的调整在笔者多台机器上可正确获取NT内核模块地址。PoC代码就不贴出了，简单原理已经说清楚了，附图中是读取IDT（中断处理函数）。</p>
+<p>&emsp;&emsp;要修补该缺陷也很简单，对支持UMIP（User-Mode Instruction Prevention）的CPU可直接使用该特性；更通用的方案则是将中断处理入口改为随机化地址同时又映射在user shadow address space的代码片段中，该段代码切换页表后跳转至nt内核中实际处理函数（为防止理论上攻击者可读取该段代码内容分析出跳转目标地址，可使最后跳转指令在未被映射到user的页面上，或者读取未被映射到user的数据区中的内容间接跳转）。<br><img src="/2018/02/06/meltdown/1.png" alt>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/06/meltdown/" data-id="cmd5slr27000b0lo19rnsgjps" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../04/09/A-Kernel-Vulnerability-Detection-Framework-based-on-Hardware/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          A Kernel Vulnerability Detection Framework based on Hardware
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../../2017/12/rs4_dual_cr3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">随笔</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/03/">三月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2023/02/">二月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/07/">七月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2022/02/">二月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/09/">九月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/11/">十一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2023/03/10/race_windown/">Linux 内核利用技巧 Racing against the clock</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/06/cve-2022-1015/">CVE-2022-1015 nf_tables 提权漏洞分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2023/02/01/slabUaf-to-pageUaf/">Linux 内核利用技巧 Slab UAF to Page UAF</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/07/04/CVE-2022-23222/">CVE-2022-23222  eBPF verifier 提权漏洞利用分析</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2022/02/10/CVE-2021-4034/">CVE-2021-4034 pkexec 本地提权漏洞利用解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 IceSword Lab<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="../../../../research" class="mobile-nav-link">Research</a>
+  
+    <a href="../../../../vulnerabilities" class="mobile-nav-link">Vulnerabilities</a>
+  
+    <a href="../../../../recruitment" class="mobile-nav-link">Recruitment</a>
+  
+    <a href="../../../../about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
